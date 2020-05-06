@@ -1,0 +1,38 @@
+@charset "utf-8";
+
+div#erro {
+  width: 350px;
+}
+
+form {
+  width: 500px;
+  margin: 70px auto 120px auto;
+}
+
+img.icone_login {
+  margin-bottom: -7px;
+  width: 25px;
+  margin-right: -5px;
+}
+
+input {
+  font-family: sans-serif;
+  font-weight: normal;
+  font-size: 13pt;	
+  background-color: rgba(255, 255, 255,.8);
+}
+
+input#bEntrar {
+  margin-left: 65px; 
+  width: 223px; 
+  text-align: left;
+}
+
+input:hover {
+  background-color: #dddddd;	
+}
+
+fieldset {
+  margin: 60px;
+  padding-bottom: 25px;
+}

@@ -1,0 +1,278 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+
+
+/* FORMATAÇÃO GLOBAL */
+body {
+  background-color: #dddddd;
+  font-family: arial, sans-serif;
+}
+
+p {
+  text-align: justify;
+  text-indent: 40px;
+}
+
+a {
+  text-decoration: none;  
+}
+
+a:hover {
+  text-decoration: underline; 
+}
+
+div#interface {
+  width: 950px;	
+  background-color: #ffffff;
+  margin: -20px auto 0px auto;
+  box-shadow: 0px 0px 10px rgba(0,0,0, .5);
+  padding: 10px 10px 20px 10px;
+}
+
+input.buscar {
+  width: 26px;
+  margin-bottom: -6px;
+}
+
+
+/*====================*/
+
+
+/* FORMATAÇÃO DA ÁREA DE CABEÇHALHO */
+header#cabecalho {
+  margin-top: 50px;
+  height: 120px;
+  margin-bottom: 50px;
+
+  #border-bottom: 1px #606060 solid;
+}
+
+/* Formatação do Menu */
+nav#menu {
+  display: block; 
+}
+
+nav#menu ul {
+  list-style: none;
+  text-transform: uppercase;
+  position: absolute;
+  top: -20px;
+  left: 350px;
+}
+
+nav#menu li {
+  display: inline-block;
+  background-color: #dddddd;  
+  padding: 10px;
+  margin: 2px;
+  transition: background-color 1s;
+}
+
+nav#menu li:hover {
+  background-color: #606060;  
+}
+
+nav#menu a {
+  color: #000000; 
+}
+
+nav#menu a:hover {
+  color: #ffffff;
+}
+
+/* Formatação de Ícones */
+img#homepage {
+  position: absolute;
+  top: 130px;
+  width: 40px;
+}
+
+img#icone {
+  position: absolute;
+  left: 725px;
+  top: 75px;
+}
+/*
+img#sair {
+  width: 40px;
+  position: absolute;
+  left: 1055px;
+  top: 125px;
+}*/
+
+img#busca {
+  width: 28px;
+  position: relative;
+  top: 7px;
+}
+
+header#cabecalho h1 {
+  font-family: 'FonteLogo', sans-serif;
+  font-size: 30pt;
+  color: #606060;
+  text-shadow: 1px 1px 1px rgba(0,0,0, .6);
+  padding: 0px;
+  margin-bottom: 0px; 
+
+}
+
+/* Formatação das Fontes */
+header#cabecalho h2 {
+  font-family: 'Titillium Web', sans-serif;
+  color: #888888;
+  font-size: 15pt;
+  padding: 0px;
+  margin-top: 0px;
+}
+
+header#cabecalho h2.nome_pag {
+  text-align: center;
+}
+
+hr {
+  border: 1px solid #606060;
+  margin-top: -15px;
+}
+
+header#cabecalho h3 {
+  margin-top: 8px;
+  font-size: 15px;
+  color: #606060; 
+}
+
+header#cabecalho p {
+  margin-top: -35px;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: right;
+}
+
+
+/*====================*/
+
+
+/* FORMATAÇÃO DE MENSAGENS DE ALERTA DO SISTEMA */
+div#sucesso {
+  width: 500px;
+  border-radius: 15px;
+  margin: 40px auto 20px auto;
+  padding: 1px 22px 1px 0px;
+  box-shadow: 0px 0px 10px rgba(0,0,0, .5);
+  background-color: rgb(226, 239, 218);
+  color: rgb(74, 116, 67);
+}
+
+div#sucesso p {
+  text-align: center;
+}
+
+div#aviso {
+  width: 500px;
+  border-radius: 15px;
+  margin: auto auto 20px auto;
+  padding: 1px 22px 1px 0px;
+  box-shadow: 0px 0px 10px rgba(0,0,0, .5);
+  background-color: rgb(251, 248, 229);
+  color: rgb(134, 110, 66);
+}
+
+div#aviso p {
+  text-align: center;
+}
+
+div#erro {
+  #width: 350px;
+  border-radius: 15px;
+  margin: 40px auto 20px auto;
+  padding: 1px 22px 1px 0px;
+  box-shadow: 0px 0px 10px rgba(0,0,0, .5);
+  background-color: rgb(239, 223, 222);
+  color: rgb(157, 75, 69);
+}
+
+div#erro p {
+  text-align: center;
+}
+
+/* Formatação de imagens */
+img.alerta {
+  width: 28px;
+  margin-bottom: -5px;
+}
+
+
+/*====================*/
+
+
+/* FORMATAÇÃO DE TABELAS */
+table.busca {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.busca td {
+  padding: 8px;
+}
+
+table.busca tr#cabecalho {
+  background-color: #3399cc;
+}
+
+table.busca tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+table.busca tr:hover {
+  background-color: #dddddd;
+}
+
+/* Tabela de Confirmação de Exclusão */
+table.excluir {
+  border: 1px solid #606060;
+  border-collapse: collapse;
+  margin: 15px;
+}
+
+table.excluir td {
+  #border: 1px solid red;
+  padding: 10px;
+}
+
+table.excluir tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+
+/*====================*/
+
+
+/* FORMATAÇÃO DE FORMULÁRIOS */
+form.editar, fieldset.editar {
+  width: 500px;
+  margin: auto;
+}
+
+form.cadastro {
+  width: 500px;
+  margin: auto;
+}
+
+legend {
+  color: #888888;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 13pt;
+}
+
+
+/*====================*/
+
+
+/* FORMATAÇÃO DA ÁREA DE RODAPÉ */
+footer p {
+  font-family: sans-serif;
+  color: #606060;
+  text-align: center;
+  font-size: 16px;
+}
+
