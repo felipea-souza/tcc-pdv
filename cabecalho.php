@@ -14,29 +14,29 @@ echo "
                 <li onmouseover='mudaFoto(`_imagens/users.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='usuarios.php'>Usuários</a></li>";
         }
 echo "
-        </ul>
-      </nav>
+        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='institucional.php'>Institucional</a></li>
+      </ul>
+    </nav>
 
-      <hgroup>
-        <h1>Sistema de Gestão PDV</h1> 
-        <h2>Armazém Santo Antônio</h2>
-        <h2 class='nome_pag'>$nome_pag</h2>
-      </hgroup>
+    <hgroup>
+      <h1>Sistema de Gestão PDV</h1> 
+      <h2>Armazém Santo Antônio</h2>
+      <h2 class='nome_pag'>$nome_pag</h2>
+    </hgroup>
 
-      <a href='./home.php' title='Home'><img id='homepage' src='./_imagens/homepage.png'/></a> 
-      <img id='icone' src='_imagens/$icone_pag'/>
-      <!-- <a href='./user-logout.php' title='Sair'><img id='sair' src='_imagens/sair.png'/></a> -->
-      <!-- border-bottom: 1px #606060 solid; -->
+    <a href='./home.php' title='Home'><img id='homepage' src='./_imagens/homepage.png'/></a> 
+    <img id='icone' src='_imagens/$icone_pag'/>
+    <!-- <a href='./user-logout.php' title='Sair'><img id='sair' src='_imagens/sair.png'/></a> -->
 
-      <hr>
-      
-      <h3>$bread_crumb</h3>";
+    <hr>
+    
+    <h3>$bread_crumb</h3>";
 
-    $nome = explode(" ", $_SESSION['nome']);
+  $nome = explode(" ", $_SESSION['nome']);
 
-    echo "<p>Olá, ";
-      for ($i=0; $i<=1; $i++) {
-        echo ("$nome[$i] ");
-      }
-    echo "| <a href='user-edit.php'>Meus dados</a> | <a href='./user-logout.php' title='Sair'>Sair</a></p>";
-  echo "</header>";
+  echo "<p>Olá, ";
+    for ($i=0; $i<=1; $i++) {
+      echo ("$nome[$i] ");
+    }
+  echo "| <a href='user-edit.php'>Meus dados</a> | <a href='./user-logout.php' title='Sair'>Sair</a></p>";
+echo "</header>";

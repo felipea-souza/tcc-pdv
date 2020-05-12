@@ -4,34 +4,21 @@
   session_start();
   require_once './_includes/funcoes.php';
   isLogged();
+  require_once './_includes/connection.php';
 ?>
 
 <html lang="pt-br">
   <head>
     <meta charset="utf-8">
     <title>Sistema PDV</title>
-
     <link rel="stylesheet" type="text/css" href="./_css/estilo.css"/>
-    <link rel="stylesheet" type="text/css" href="./_css/produtos.css"/>
-
-    <style>
-      a.adicionar {
-        position: relative;
-        top: 6px;
-      }
-    </style>
   </head>
 
   <body>
     <div id="interface">
-      
-      <?php 
-        require_once "./_includes/connection.php";
-        $flag = $_GET["iBusca"] ?? "";
-        $chave = $_GET["cBusca"] ?? "";
-        $ordem = $_GET["o"] ?? "";
 
-        $nome_pag = "Página de Produtos";
+      <?php 
+        $nome_pag = "Produtos";
         $icone_pag = "produtos.png";
         $iconeMouseOut = "produtos.png";
         $bread_crumb = "Home > Produtos";
@@ -39,86 +26,85 @@
         require_once './cabecalho.php';
       ?>
 
-      <a title="Voltar" href="./home.php"><img id="voltar-home" src="./_imagens/voltar.png"/></a>
-      
-      <form id="busca" action="./produtos.php" method="get">
-        <input type="hidden" name="iBusca" value="buscar">
-        Ordenar: 
-        <a href="./produtos.php?o=p&cBusca=<?php echo $chave ?>" name="iBusca">Produto</a> | 
-        <a href="./produtos.php?o=meq&cBusca=<?php echo $chave ?>" name="iBusca">Menor quant.</a> | 
-        <a href="./produtos.php?o=maq&cBusca=<?php echo $chave ?>" name="iBusca">Maior quant.</a> | 
+      <a title="Voltar" href="javascript:history.go(-1)"><img id="voltar-home" src="./_imagens/voltar.png"/></a>
 
-        Buscar: <input type="text" name="cBusca" id="cBusca" size="20" maxlength="30"/> 
-        <input type="image" class="buscar" id="iBusca" name="iBusca" title="Buscar/Listar todos" src="./_imagens/buscar.png"/>
-        <?php 
-        if (isAdmin()) {
-          echo "<a class='adicionar' href='./produtos-cadastrar.php' title='Adicionar novo produto'><img src='./_imagens/adicionar.png'/></a>";
-        } 
-      ?>
-      </form>
+      <?php
+        $codBarraVerificar = $_GET['codBarra'] ?? null;
+        $codBarraForm = $_GET['codBarraForm'] ?? null;
 
-      
-      
-      <table class="busca">
-        <?php
-          if (empty($flag) && empty($ordem)) {
-            echo "<tr><td style='font-style: italic;'>Sem consulta!</td></tr>";
-          } else {
-                  $query = "select cod_barra, produto, quant, preco from estoque";
+        if (!isAdmin()) {
+          echo msgAviso("Área restrita!</p><p>Você não é administrador.");
+        } else {
+                if (empty($codBarraForm)) {
+                
+                  if (empty($codBarraVerificar)) { # Verificar se o produto já se encontra cadastrado  #1: 'codBarra'
+                            echo "<form class='cadastro' action='produtos.php' method='get'><fieldset><legend>Produto</legend>";
+                              echo "<p>Cód. barra: <input type='text' name='codBarra' id='codBarra' size='13' maxlength='13' placeholder='Somente nº' onkeypress='return validarCodBarra(event)'> 
+                              <a href='javascript:validarCampoCodBarra()'><img src='./_imagens/buscar.png' id='busca' title='Buscar'></a>
+                              <input type='submit' id='iBusca' name='tBuscar' title='Buscar' src='./_imagens/buscar.png' style='display: none;'></p>";
+                            echo "</fieldset></form>";
+                  } else {
+                          $query = "SELECT cod_barra, produto, quant, preco FROM estoque WHERE cod_barra = '$codBarraVerificar'";
+                                   $consulta = $conexao->query($query);
 
-                  if(!empty($chave)) {
-                    $query .= " WHERE cod_barra LIKE '%$chave%' OR produto LIKE '%$chave%'";
-                  }
+                                   if (!$consulta) {
+                                     echo "Não foi possível realizar a consulta!";
+                                   } else {                                                               #2: 'codBarraForm'
+                                           if ($consulta->num_rows == 0) { # Não está cadastrado (pode cadastrar produto)
+                                             echo "<form class='cadastro' action='./produtos.php' method='get'><fieldset><legend>Produto</legend>";
+                                               echo "<p>Cod. Barra: <input type='text' id='codBarraForm' name='codBarraForm' size='13' maxlenght='13' value='".$codBarraVerificar."' readonly style='background-color: #ebebe4;'/></p>";
+                                               echo "<p>Produto: <input type='text' id='produto' name='produto' size='20' maxlength='40'/></p>";
+                                               echo "<p>Quant.: <input type='number' min='0' value='0' id='quant' name='quant' size='3' maxlength='3'/></p>";
+                                               echo "<p>Preço: R$ <input type='text' id='preco' name='preco' size='10' maxlength='10'></p>";
 
-                  switch ($ordem) {
-                    case "p":
-                          $query .= " ORDER BY produto";
-                          break;
-                      case "meq":
-                          $query .= " ORDER BY quant ASC";
-                          break;
-                      case "maq":
-                          $query .= " ORDER BY quant DESC";
-                          break;
-                      /*default :
-                          $query .= " ORDER BY cod_barra"; <- não precisou do 'default', pois verifiquei que com o parâmetro "o" vazio, o select padrão é realizado (ordenando pelo 'cod_barra') */
-                  }
-
-                  $consulta = $conexao->query($query);
-                    if (!$consulta) {
-                      echo "<tr><td style='font-style: italic;'>Infelizmente, não foi possível realizar a consulta!</td></tr>";
+                                               echo "<p><input type='button' value='Adicionar' onclick='validarCampos()'></p>";
+                                               echo "<p><input type='submit' id='submit' value='Salvar' style='display: none;'></p>";
+                                             echo "</fieldset></form>";
+                                           } else { # Já está cadastrado (não pode cadastrar produto)
+                                                   $reg = $consulta->fetch_object();
+                                                   $preco = str_replace('.', ',', $reg->preco);
+                                                   echo "<table class='busca'>";
+                                                     echo "<tr id='cabecalho'><td>Cód. barra</td><td>Produto</td><td>Quant.</td><td>Preço</td><td></td></tr>";
+                                                     echo "<tr><td>$reg->cod_barra</td><td>$reg->produto</td><td>$reg->quant</td><td>R$ $preco</td><td></td></tr>";
+                                                   echo "</table>";
+                                             }      
+                                     }
                     }
-                      else {
-                            if ($consulta->num_rows == 0) {
-                                echo "<tr><td style='font-style: italic;'>Nenhum registro encontrado!</td></tr>";
-                            } else {
-                                   if ($_SESSION['tipo'] == 'adm') {
-                                           echo "<tr id='cabecalho'><td>Cód. barra</td><td>Produto</td><td>Quant.</td><td>Preço</td><td></td></tr>";
-                                           $i = 0;
-                                           while ($reg = $consulta->fetch_object()) {
-                                             $codBarra = $reg->cod_barra;
+                } else { # GRAVANDO novo produto no banco (parâmetros vindos do formulário id='cadastro-produto' acima)
+                        $codBarraForm;
+                        $produto = $_GET['produto'] ?? null;
+                        $quant = $_GET['quant'];
+                        $preco= $_GET['preco'] ?? null;
+                    
+                        $id_user = $_SESSION['id_user'];
+                        $preco = str_replace(',', '.', $preco);
+                        $query = "INSERT INTO estoque (cod_barra, produto, quant, preco, id_user_cadast, dt_hr_cadast) VALUES ('$codBarraForm', '$produto', '$quant', '$preco', '$id_user', now())";
+                        if ($conexao->query($query)) {
+                          echo msgSucesso("Produto cadastrado com sucesso!");
+                        } else {
+                                echo msgErro("Não foi possível cadastrar o produto!");
+                        }
+                        
+                        
 
-                                             $preco = str_replace(".", ",", $reg->preco);
-                                             echo "<tr><td>$reg->cod_barra</td><td>$reg->produto</td><td>$reg->quant</td><td>R$ $preco</td><td><a title='Editar' href='produtos-edit.php?cb=$codBarra'><img src='./_imagens/editar.png'/></a> <a title='Excluir' href='produtos-delete.php?cb=$codBarra'><img src='./_imagens/deletar.png'/></a></td></tr>";
-                                             $i++;
-                                           }
-                                    } else {
-                                            echo "<tr id='cabecalho'><td>Cód. barra</td><td>Produto</td><td>Quant.</td><td>Preço</td><td></td></tr>";
-                                            while ($reg = $consulta->fetch_object()) {
-                                             $preco = str_replace(".", ",", $reg->preco);
-                                             echo "<tr><td>$reg->cod_barra</td><td>$reg->produto</td><td>$reg->quant</td><td>R$ $preco</td><td></td></tr>";
-                                            }
-                                      }
-                              }  
-                      }
-            }
-        ?>
-      </table>
+                  }
+          }
+      ?>
     </div>
 
     <?php include_once "./rodape.php"; ?>
 
-    <script type="text/javascript" src="_javascript/funcoes.js"></script>
-  </body>
+    <script type="text/javascript" src="./_javascript/funcoes.js"></script>
+    <script>
+      function validarCampoCodBarra() {
+        var codBarra = document.getElementById('codBarra').value;
 
+        if (codBarra.length == 0 || codBarra.length < 13) {
+          window.alert(`Impossível verificar! Um código de barras é composto por 13 dígitos.`);
+        } else {
+          document.getElementById('iBusca').click();
+        }
+      }
+    </script>
+  </body>
 </html>

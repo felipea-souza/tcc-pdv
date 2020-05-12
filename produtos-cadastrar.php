@@ -45,7 +45,7 @@
                               echo "<p>Cód. barra: <input type='text' name='codBarra' id='codBarra' size='13' maxlength='13' placeholder='Somente nº' onkeypress='return validarCodBarra(event)'> 
                               <a href='javascript:validarCampoCodBarra()'><img src='./_imagens/buscar.png' id='busca' title='Buscar'></a>
                               <input type='submit' id='iBusca' name='tBuscar' title='Buscar' src='./_imagens/buscar.png' style='display: none;'></p>";
-                            echo "</form></form>";
+                            echo "</fieldset></form>";
                   } else {
                           $query = "SELECT cod_barra, produto, quant, preco FROM estoque WHERE cod_barra = '$codBarraVerificar'";
                                    $consulta = $conexao->query($query);
