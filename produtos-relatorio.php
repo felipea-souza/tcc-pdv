@@ -11,8 +11,9 @@
     <meta charset="utf-8">
     <title>Sistema PDV</title>
 
-    <link rel="stylesheet" type="text/css" href="./_css/estilo.css"/>
-    <link rel="stylesheet" type="text/css" href="./_css/produtos.css"/>
+    <link rel="stylesheet" type="text/css" href="./_css/estilo.css">
+    <link rel="stylesheet" type="text/css" href="./_css/produtos.css">
+    <link rel="shortcut icon" href="./_imagens/fav-icon.png" type="image/x-icon">
 
     <style>
       a.adicionar {

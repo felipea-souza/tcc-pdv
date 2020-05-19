@@ -11,8 +11,9 @@
     <meta charset="utf-8">
     <title>Sistema PDV</title>
 
-    <link rel="stylesheet" type="text/css" href="./_css/estilo.css"/>
-    <link rel="stylesheet" type="text/css" href="./_css/pag_index.css"/>
+    <link rel="stylesheet" type="text/css" href="./_css/estilo.css">
+    <link rel="stylesheet" type="text/css" href="./_css/pag_index.css">
+    <link rel="shortcut icon" href="./_imagens/fav-icon.png" type="image/x-icon">
   </head>
 
   <body>
@@ -24,7 +25,15 @@
           <h2 class="nome_pag">Página de Login</h2>
         </hgroup>
       </header>
+
       <hr style="margin-top: 0px;">
+
+      <div id="quem_somos">
+        <h1>Quem Somos</h1>
+        <p>O armazém Santo Antônio é uma micro empresa familiar formada no ano 2000 que tem o intuito de trazer aos nossos clientes produtos de qualidade e variedade, ótimos preços, atendimento com excelência e um ambiente aconchegante para atender o público.</p>
+        <img src="./_imagens/fachada.jpeg">
+      </div>
+
       <?php
         if (empty($_POST['tLogin']) || empty($_POST['tSenha'])) {
 
@@ -38,7 +47,7 @@
             echo "<fieldset id='usuario'><legend>Identificação do Usuário</legend>";
               echo "<p><img class='icone_login' src='./_imagens/user_login.png'/> <input type='text' name='tLogin' id='cLogin' size='20px' maxlength='30' placeholder='Nome de usuário'/></p>";
               echo "<p><img class='icone_login' src='./_imagens/password.png'/> <input type='password' name='tSenha' id='cSenha' size='20px' maxlength='18' placeholder='Senha'/></p>";
-              echo "<input type='submit' id='bEntrar' value='Entrar'/>";
+              echo "<input type='submit' id='bEntrar' value='Entrar'>";
             echo "</fieldset>"; 
           echo "</form>";
         } else {
@@ -71,6 +80,16 @@
                   }
           }
       ?>
+
+      <div id="missao">
+        <h1>Missão</h1>
+        <p>Nossa missão é oferecer produtos e atendimento que superem as expectativas de nossos clientes, garantindo a qualidade e a procedência de todo o nosso estoque e investindo na qualidade, eficiência do atendimento e ótimos preços.</p>
+      </div> 
+
+      <div id="visao">
+        <h1>Visão</h1>
+        <p>Nossa visão consite basicamente em nos tornar em referência</p>
+      </div>
     </div>
 
     <?php require_once "./rodape.php"; ?>

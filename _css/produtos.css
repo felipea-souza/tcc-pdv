@@ -23,3 +23,8 @@ legend {
 div.mensagem {
   width: 350px;
 }
+
+ul#botoes li {
+	display: inline-block;
+	margin-right: 5px;
+}

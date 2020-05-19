@@ -12,8 +12,9 @@
     <meta charset="utf-8"/>
     <title>Sistema PDV</title>
 
-    <link rel="stylesheet" type="text/css" href="./_css/estilo.css"/>
-    <link rel="stylesheet" type="text/css" href="./_css/produtos.css"/>
+    <link rel="stylesheet" type="text/css" href="./_css/estilo.css">
+    <link rel="stylesheet" type="text/css" href="./_css/produtos.css">
+    <link rel="shortcut icon" href="./_imagens/fav-icon.png" type="image/x-icon">
   </head>
 
   <body>
@@ -34,7 +35,7 @@
         if (!isAdmin()) {
           echo msgAviso("Área restrita!</p> <p>Você não é administrador.");
         } else {
-                $codBarra = $_GET['cb'] ?? null;
+                $codBarra = $_GET['codBarra'] ?? null;
                 $codBarra2 = $codBarra;
 
                 $codBarraDelete = $_GET['cbd'] ?? null;

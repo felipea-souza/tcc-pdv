@@ -14,7 +14,7 @@ echo "
                 <li onmouseover='mudaFoto(`_imagens/users.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='usuarios.php'>Usuários</a></li>";
         }
 echo "
-        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='institucional.php'>Institucional</a></li>
+        <!-- <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='institucional.php'>Institucional</a></li> -->
       </ul>
     </nav>
 

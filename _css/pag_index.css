@@ -1,12 +1,53 @@
 @charset "utf-8";
 
+div#interface {
+  height: 850px;
+}
+
+div#quem_somos {
+  width: 300px;
+  #position: relative;
+  float: left;
+#border: 1px solid red;
+}
+
 div#erro {
+  #float: right;
   width: 350px;
+  position: absolute;
+  top: 140px;
+  left: 532px;
+  #margin-bottom: -20px;
 }
 
 form {
+  float: right;
   width: 500px;
-  margin: 70px auto 120px auto;
+  position: relative;
+  #margin: 70px auto 120px auto;
+  top: 15px;
+  left: -120px;
+  padding: -30px;
+#border: 1px solid green;
+}
+
+div#missao {
+  #position: relative;
+  float: right;
+  #margin-top: 260px;
+  #margin-left: 60px;
+  width: 640px;
+  margin-top: -50px;
+#border: 1px solid green;
+}
+
+div#visao {
+  #float: right;
+  #position: relative;
+  #top: 35px;
+  #left: -300px;
+  margin-top: 470px;
+#border: 1px solid green;
 }
 
 img.icone_login {
@@ -23,7 +64,7 @@ input {
 }
 
 input#bEntrar {
-  margin-left: 65px; 
+  margin-left: 55px; 
   width: 223px; 
   text-align: left;
 }
