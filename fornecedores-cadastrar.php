@@ -2,149 +2,106 @@
 
 <?php
   session_start();
+  #require_once './_includes/verifica_login.php';
   require_once './_includes/funcoes.php';
   isLogged();
-  require_once './_includes/connection.php';
+  require_once "./_includes/connection.php";
 ?>
 
 <html lang="pt-br">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
     <title>Sistema PDV</title>
-    <link rel="stylesheet" type="text/css" href="./_css/estilo.css"/>
+
+    <link rel="stylesheet" type="text/css" href="./_css/estilo.css">
+    <link rel="stylesheet" type="text/css" href="./_css/produtos.css">
     <link rel="shortcut icon" href="./_imagens/fav-icon.png" type="image/x-icon">
-    <style>
-      table.busca {
-        font-size: 11px;
-      }
-    </style>
   </head>
 
   <body>
     <div id="interface">
 
       <?php 
-        $nome_pag = "Página de Cadastro de Fornecedores";
+        $nome_pag = "Cadastrar Fornecedor";
         $icone_pag = "fornecedores.png";
         $iconeMouseOut = "fornecedores.png";
-        $bread_crumb = "Home > Fornecedores > Adicionar Fornecedor";
+        $bread_crumb = "Home > Fornecedor > Cadastrar Fornecedor";
 
         require_once './cabecalho.php';
       ?>
 
-      <a title="Voltar" href="fornecedores.php"><img id="voltar-home" src="./_imagens/voltar.png"/></a>
+      <a title="Voltar" href="./fornecedores.php"><img class="voltar" src="./_imagens/voltar.png"/></a>
 
       <?php
-        $cnpjVerificar = $_GET['cnpjVerificar'] ?? null;
-        $cnpjForm = $_GET['cnpjForm'] ?? null;
+        $cnpj = $_GET['cnpj'] ?? null;
 
         if (!isAdmin()) {
           echo msgAviso("Área restrita!</p><p>Você não é administrador.");
         } else {
-            if (empty($cnpjForm)) {
+                if (isset($cnpj)) {
+                  echo "<form class='cadastro' action='./fornecedores-cadastrar.php' method='get'><fieldset><legend>Cadastrar Novo Fornecedor</legend>
+                          <p>CNPJ: <input type='text' id='cnpjForm' name='cnpjForm' size='18' maxlenght='18' value='$cnpj' readonly style='background-color: #ebebe4;'></p>
+                          <p>Razão Social: <input type='text' id='razaoForm' name='razaoForm' size='30' maxlength='40'></p>
+                          <p>Nome Fantasia: <input type='text' id='fantForm' name='fantForm' size='20' maxlength='20'></p>
+                          <p>Rua: <input type='text' id='ruaForm' name='ruaForm' size='30' maxlength='40'></p>
+                          <p>CEP: <input type='text' id='cepForm' name='cepForm' maxlength='10' size='10' onkeypress='return validarCEP(event)'></p>
+                          <p>Bairro: <input type='text' name='bairroForm' id='bairroForm' maxlength='20' size='20'></p>
+                          <p>Tel.: <input type='text' name='telForm' id='telForm' maxlength='14' size='14' placeholder='Somente nº' onkeypress='return validarTel(event)'></p>
+                          <p>Cel.: <input type='text' name='celForm' id='celForm' maxlength='15' size='15' placeholder='Somente nº' onkeypress='return validarCel(event)'></p>
 
-              if (empty($cnpjVerificar)) { # Verificar se o fornecedor já se encontra cadastrado
-                echo "<form class='cadastro' action='fornecedores-cadastrar.php' method='get'><fieldset><legend>Cadastrar Novo Fornecedor</legend>
-                        <p>CNPJ: <input type='text' name='cnpjVerificar' id='cnpjVerificar' maxlength='18' size='18'  placeholder='Somente números' onkeypress='return validarCNPJ(event)'> 
-                        <a href='javascript:validarCampoCNPJ()'><img src='./_imagens/buscar.png' id='busca' title='Verificar'></a>
-                        <input type='submit' class='buscar' id='submit' name='tBuscar' title='Buscar' src='./_imagens/buscar.png' style='display: none;'></p>
-                      </form></form>";
-              } else {
-                      $query = "SELECT cnpj, razao_social, nome_fantasia, rua, cep, bairro, tel, cel FROM fornecedores WHERE cnpj = '$cnpjVerificar'";
-                                   $consulta = $conexao->query($query);
+                          <p><input type='button' value='Salvar' onclick='validarCamposFornecedor()'></p>
+                          <p><input type='submit' id='submit' value='Salvar' style='display: none;'></p>
+                        </fieldset></form>";
+                } else {
+                        $cnpjForm = $_GET['cnpjForm'] ?? null;
+                        if (!isset($cnpjForm)) {
+                          echo msgAviso("Nenhum fornecedor foi previamente verificado para inclusão!");
+                        } else {
+                                # GRAVANDO novo fornecedor no banco (parâmetros vindos do formulário
+                                $cnpj = $_GET['cnpjForm'] ?? null;
+                                $razao = $_GET['razaoForm'] ?? null;
+                                $fant = $_GET['fantForm'] ?? null;
+                                $rua = $_GET['ruaForm'] ?? null;
+                                $cep = $_GET['cepForm'] ?? null;
+                                $bairro = $_GET['bairroForm'] ?? null;
+                                $tel = $_GET['telForm'] ?? null;
+                                $cel = $_GET['celForm'] ?? null;
 
-                                   if (!$consulta) {
-                                     echo "Não foi possível realizar a consulta!";
-                                   } else {
-                                           if ($consulta->num_rows == 0) {  # Fornecedor não está cadastrado (pode cadastrar fornecedor)
-                                             echo "<form class='cadastro' action='./fornecedores-cadastrar.php' method='get'><fieldset><legend>Cadastrar Novo Fornecedor</legend>
-                                                     <p>CNPJ: <input type='text' id='cnpjForm' name='cnpjForm' maxlenght='14' size='14' value='".$cnpjVerificar."' readonly style='background-color: #ebebe4;'/></p>
-                                                     <p>Razão Social: <input type='text' id='razao' name='razao' maxlength='40' size='20'></p>
-                                                     <p>Nome Fantasia: <input type='text' id='fant' name='fant' maxlength='20' size='20'></p>
-                                                     <p>Rua: <input type='text' id='rua' name='rua' maxlength='40' size='20'></p>
-                                                     <p>CEP: <input type='text' id='cep' name='cep' maxlength='10' size='10' placeholder='Somente nº' onkeypress='return validarCEP(event)'></p>
-                                                     <p>Bairro: <input type='text' id='bairro' name='bairro' maxlength='20' size='15'></p>
-                                                     <p>Telefone: <input type='text' id='tel' name='tel' maxlength='14' size='14' placeholder='Somente nº' onkeypress='return validarTel(event)'></p>
-                                                     <p>Celular: <input type='text' id='cel' name='cel' maxlength='15' size='15' placeholder='Somente nº' onkeypress='return validarCel(event)'></p>
-
-                                                     <p><input type='button' id='salvar' value='Salvar' onclick='validarCampos()'></p>
-                                                     <p><input type='submit' id='submit' value='Salvar' style='display: none;'></p>
-                                                   </fieldset></form>";
-                                           } else { # Fornecedor já cadastrado (não pode cadastrar)
-                                                   echo msgAviso("O fornecedor já se encontra cadastrado no sistema!");
-                                                   $reg = $consulta->fetch_object();
-                                                   echo "<table class='busca'>";
-                                                     echo "<tr id='cabecalho'><td>CNPJ</td><td>Razão Social</td><td>Nome Fantasia</td><td>Rua</td><td>CEP</td><td>Bairro</td><td>Telefone 1</td><td>Telefone 2</td></tr>";
-                                                     echo "<tr><td>$reg->cnpj</td><td>$reg->razao_social</td><td>$reg->nome_fantasia</td><td>$reg->rua</td><td>$reg->cep</td><td>$reg->bairro</td><td>$reg->tel</td><td>$reg->cel</td></tr>";
-                                                   echo "</table>";
-                                             }   
-                                     }
-                }
-            } else {
-                    $cnpjForm;
-                    $razao = $_GET['razao'] ?? null;
-                    $fant = $_GET['fant'] ?? null;
-                    $rua = $_GET['rua'] ?? null;
-                    $cep = $_GET['cep'] ?? null;
-                    $bairro = $_GET['bairro'] ?? null;
-                    $tel = $_GET['tel'] ?? null;
-                    $cel = $_GET['cel'] ?? null;
-
-                    $query = "INSERT INTO fornecedores (cnpj, razao_social, nome_fantasia, rua, cep, bairro, tel, cel) VALUES ('$cnpjForm', '$razao', '$fant', '$rua', '$cep', '$bairro', '$tel', '$cel')";
-                    if ($conexao->query($query)) {
-                      echo msgSucesso("Produto cadastrado com sucesso!");
-                    } else {
-                            echo msgErro("Não foi possível cadastrar o fornecedor!");
-                            //echo "$cnpjForm - $razao - $fant - $rua - $cep - $bairro - $tel - $cel";
-                    }
-                            
-                    
-            }
+                                $query = "INSERT INTO fornecedores (cnpj, razao_social, nome_fantasia, rua, cep, bairro, tel, cel) VALUES ('$cnpj', '$razao', '$fant', '$rua', '$cep', '$bairro', '$tel', '$cel')";
+                                if ($conexao->query($query)) {
+                                  echo msgSucesso("Novo fornecedor cadastrado com sucesso!");
+                                } else {
+                                        echo msgErro("Não foi possível cadastrar o fornecedor!");
+                                  }
+                          }
+                                        }
           }
       ?>
     </div>
-
     <?php include_once "./rodape.php"; ?>
+    
+    <script type="text/javascript" src="_javascript/funcoes.js"></script>
+    <script>
+      // Funções para verificação de campos vazios de formulários (submit)
+      function validarCamposFornecedor() {
+        //var cnpj = document.getElementById('cnpjForm').value;
+        var razao = document.getElementById('razaoForm').value;
+        var fant = document.getElementById('fantForm').value;
+        var rua = document.getElementById('ruaForm').value;
+        var cep = document.getElementById('cepForm').value;
+        var bairro = document.getElementById('bairroForm').value;
 
-    <script type="text/javascript" src="./_javascript/funcoes.js"></script>
-    <script>      
-      function validarCNPJ(e) {
-
-        cnpj = document.getElementById('cnpjVerificar');
-
-        var charCode = e.charCode ? e.charCode : e.keyCode;
-        // charCode 8 = backspace   
-        // charCode 9 = tab
-        if (charCode != 8 && charCode != 9) {
-            // charCode 48 equivale a 0   
-            // charCode 57 equivale a 9
-            if (charCode < 48 || charCode > 57) {
-                return false;
-            } else {
-                    if (cnpj.value.length == 2 || cnpj.value.length == 6) {
-                      cnpj.value += `.`;
-                    }
-
-                    if (cnpj.value.length == 10) {
-                      cnpj.value += `/`;
-                    }
-
-                    if (cnpj.value.length == 15) {
-                      cnpj.value += `-`;
-                    }
-              }
-        }
-      }
-
-      function validarCampoCNPJ() {
-        cnpjVerificar = document.getElementById('cnpjVerificar').value;
-
-        if (cnpjVerificar.length < 18) {
-          window.alert(`O campo "CNPJ" possui 14 dígitos numéricos!`);
+        if (razao.length == 0 || fant.length == 0 || rua.length == 0 || cep.length == 0 || bairro.length == 0) {
+          window.alert(`Existem campos a serem preenchidos!`);
         } else {
-          document.getElementById(`submit`).click();
-        }
+                if (cep.length < 10) {
+                  window.alert(`O campo "CEP" possui 8 (oito) dígitos numéricos`);
+                } else {
+                        document.getElementById('submit').click();
+                  }
+          }
       }
     </script>
   </body>
+
 </html>

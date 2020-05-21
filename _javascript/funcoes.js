@@ -3,8 +3,25 @@ function mudaFoto(foto) {
   document.getElementById("icone").src = foto;
 }
 
+function abreMenu() {
+  var i = 0;
+  while (i <= 2) {
+   var item = document.getElementsByClassName('items')[i];
+   item.style.display = `list-item`;
+   i++;
+  }
+}
 
-//Funções para validação de formatos de campos
+function fechaMenu() {
+  var i = 0;
+  while (i <= 2) {
+   var item = document.getElementsByClassName('items')[i];
+   item.style.display = `none`;
+   i++;
+  }
+}
+
+//Funções para validação de formatos de campos (onkeypress)
 function validarCPF(e) {
   cpf = document.getElementById('cpf');
 
@@ -23,10 +40,10 @@ function validarCPF(e) {
               }
         }
   }
-      }
+}
 
 function validarCEP(e) {
-  cep = document.getElementById('cep');
+  cep = document.getElementById('cepForm');
 
   var charCode = e.charCode ? e.charCode : e.keyCode;
 
@@ -46,7 +63,7 @@ function validarCEP(e) {
 }
 
 function validarTel(e) {
-  tel = document.getElementById('tel');
+  tel = document.getElementById('telForm');
 
   var charCode = e.charCode ? e.charCode : e.keyCode;
 
@@ -71,7 +88,7 @@ function validarTel(e) {
 }
 
 function validarCel(e) {
-  cel = document.getElementById('cel');
+  cel = document.getElementById('celForm');
 
   var charCode = e.charCode ? e.charCode : e.keyCode;
 
@@ -98,76 +115,33 @@ function validarCel(e) {
 
 //====================
 
-// Funções para validação de campos preenchidos (não ficarem em branco)
-function validarCampos() {
-  var cnpj = document.getElementById('cnpjForm').value;
-  var razao = document.getElementById('razao').value;
-  var fant = document.getElementById('fant').value;
-  var rua = document.getElementById('rua').value;
-  var cep = document.getElementById('cep').value;
-  var bairro = document.getElementById('bairro').value;
+// Funções para verificação de campos vazios de formulários (submit)
+/*function validarCamposProduto() {
+  produto = document.getElementById('produtoForm').value;
+  preco = document.getElementById('precoForm').value;
 
-  if (cnpj.length == 0 || razao.length == 0 || fant.length == 0 || rua.length == 0 || cep.length == 0 || bairro.length == 0) {
-    window.alert(`Existem campos a serem preenchidos!`);
+  if(produto.length == 0 || preco.length == 0) {
+    window.alert(`Todos os campos devem ser preenchidos!`);
   } else {
-          if (cep.length < 10) {
-            window.alert(`O campo "CEP" possui 8 (oito) dígitos numéricos`);
-          } else {
-                  document.getElementById('submit').click();
-          	}
-  	}
+          document.getElementById('submit').click();
+    }
+  }*/
+
+
+
+//Função para confirmação de exclusão de produto
+function confirmacao(cod_barra) {
+  var ok = window.confirm(`Deseja realmente excluir este produto? Esta operação não poderá ser desfeita.`);
+
+  if (ok) {
+    location.href=`./produtos-delete.php?cb=${cod_barra}`;
+  }
 }
 
+function confirmacaoForn(cnpj) {
+  var ok = window.confirm(`Deseja realmente excluir este fornecedor? Esta operação não poderá ser desfeita.`);
 
-//====================
-
-function editarUsuario(linha) {
-	var linha = linha;
-
-	nome = document.getElementsByName('tdNome')[linha];
-	login = document.getElementsByName('tdLogin')[linha];
-	tipo = document.getElementsByName('tdTipo')[linha];	
-
-	var iNome = document.createElement('input');
-	iNome.setAttribute('type', 'text');
-	iNome.setAttribute('value', nome.innerText);
-	nome.innerHTML = ``;
-	nome.appendChild(iNome);
-
-	var iLogin = document.createElement('input');
-	iLogin.setAttribute('type', 'text');
-	iLogin.setAttribute('value', login.innerText);
-	login.innerHTML = ``;
-	login.appendChild(iLogin);
-
-	
-	//CAMPO TIPO                                  //    tipo = <td>
-	var sTipo = document.createElement('select'); //<-- stipo = <select>
-	sTipo.setAttribute('name', 'sTipo');          //    opt1 = <option>
-
-	//<option 1>
-	var opt1 = document.createElement('option');
-	opt1.text = (tipo.innerText == 'usr' ? 'Usuário':'Administrador');
-	opt1.setAttribute('value', (opt1.text == 'Usuário' ? 'usr' : 'adm'));
-	tipo.innerHTML = ``;
-	tipo.appendChild(sTipo);
-	document.getElementsByName('sTipo')[linha].appendChild(opt1);
-
-	//<option 2>
-	var opt2 = document.createElement('option');
-	if (opt1.text == 'Usuário') {
-		opt2.text = 'Administrador';
-		opt2.setAttribute('value', 'adm');
-	} else {
-		opt2.text = 'Usuário';
-		opt2.setAttribute('value', 'usr'); 
-	}
-	document.getElementsByName('sTipo')[linha].appendChild(opt2);
-
-	var img = document.createElement('img');
-	img.setAttribute('name', 'salvar')
-	img.setAttribute('src', './_imagens/salvar.png');
-	tipo.appendChild(img);
-	document.getElementsByName('salvar')[linha].style.margin = 'auto auto auto 15px';
-
+  if (ok) {
+    location.href=`./fornecedores-delete.php?cnpj=${cnpj}`;
+  }
 }

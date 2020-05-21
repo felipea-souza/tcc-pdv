@@ -35,38 +35,17 @@
         if (!isAdmin()) {
           echo msgAviso("Área restrita!</p> <p>Você não é administrador.");
         } else {
-                $codBarra = $_GET['codBarra'] ?? null;
-                $codBarra2 = $codBarra;
+                $codBarra = $_GET['cb'] ?? null;
 
-                $codBarraDelete = $_GET['cbd'] ?? null;
-
-                if (isset($codBarra)) {
-
-                  $consulta = $conexao->query("SELECT cod_barra, produto, quant, preco FROM estoque WHERE cod_barra = '$codBarra'");
-
-                  if (!$consulta) {
-                    echo msgErro("Não foi possível realizar a consulta ao produto!");
-                  } else {
-                          echo msgAviso("Atenção!<br/>Esta operação não poderá ser desfeita!");
-                          $reg = $consulta->fetch_object();
-
-                          echo "<fieldset class='editar'><legend>Excluir Produto</legend><table class='excluir'>";
-                            echo "<tr><td>Cod. Barra:</td><td>$reg->cod_barra</td></tr>";
-                            echo "<tr><td>Produto:</td><td>$reg->produto</td></tr>";
-                            echo "<tr><td>Quant.:</td><td>$reg->quant</td></tr>";
-                            $preco = str_replace(".", ",", $reg->preco);
-                            echo "<tr><td>Preço:</td><td>R$ $preco</td></tr>";
-                          echo "</table>";
-
-                          echo "<a href='./produtos-delete.php?cbd=$codBarra2'><button style='margin-left: 15px;'>EXCLUIR</button></a></fieldset>";
-                    }
+                if (!isset($codBarra)) { 
+                  echo msgAviso("Nenhum produto a ser excluído!");
                 } else {
-                        if ($conexao->query("DELETE FROM estoque WHERE cod_barra = '$codBarraDelete'")) {
+                        if ($conexao->query("DELETE FROM estoque WHERE cod_barra = '$codBarra'")) {
                           echo msgSucesso("Produto excluído com sucesso!");
                         } else {
                                 echo msgErro("Não foi possível excluir o produto!");
                           }
-                  }
+                }
           }
       ?>
     </div>

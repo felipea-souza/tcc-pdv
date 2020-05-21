@@ -17,7 +17,6 @@
 
   <body>
     <div id="interface">
-
       <?php 
         $nome_pag = "Produtos";
         $icone_pag = "produtos.png";
@@ -27,7 +26,7 @@
         require_once './cabecalho.php';
       ?>
 
-      <a title="Voltar" href="./home.php"><img id="voltar-home" src="./_imagens/voltar.png"/></a>
+      <a title="Voltar" href="javascript:history.go(-1)"><img id="voltar-home" src="./_imagens/voltar.png"/></a>
 
       <?php
         $codBarraForm = $_GET['codBarraForm'] ?? null;
@@ -38,7 +37,7 @@
                 if (empty($codBarraForm)){
                   # Verificar se o produto se encontra ou não cadastrado no sistema
                   echo "<form class='cadastro' action='produtos.php' method='get'><fieldset><legend>Produto</legend>
-                          <p>Cód. barra: <input type='text' name='codBarraForm' id='codBarra' size='13' maxlength='13' placeholder='Somente nº' onkeypress='return validarCodBarra(event)'> 
+                          <p>Cód. barra: <input type='text' name='codBarraForm' id='codBarraForm' size='13' maxlength='13' placeholder='Somente nº' onkeypress='return validarCodBarra(event)'> 
                           <a href='javascript:validarCampoCodBarra()'><img src='./_imagens/buscar.png' id='busca' title='Buscar'></a>
                           <input type='submit' id='iBusca' name='tBuscar' title='Buscar' src='./_imagens/buscar.png' style='display: none;'></p>
                         </fieldset></form>";
@@ -67,11 +66,25 @@
 
     <script type="text/javascript" src="./_javascript/funcoes.js"></script>
     <script>
-      function validarCampoCodBarra() {
-        var codBarra = document.getElementById('codBarra').value;
+      //Funções para validação de formatos de campos (onkeypress)
+      function validarCodBarra(e) {
+        codBarraForm = document.getElementById('codBarraForm');
 
-        if (codBarra.length == 0 || codBarra.length < 13) {
-          window.alert(`Impossível verificar! Um código de barras é composto por 13 dígitos.`);
+        var charCode = e.charCode ? e.charCode : e.keyCode;
+
+        if (charCode != 8 && charCode != 9) {
+            if (charCode < 48 || charCode > 57) {
+                return false;
+            }
+        }
+      }
+
+      // Funções para verificação de campos vazios de formulários (submit)
+      function validarCampoCodBarra() {
+        var codBarraForm = document.getElementById('codBarraForm').value;
+
+        if (codBarraForm.length == 0 || codBarraForm.length < 13) {
+          window.alert(`O código de barras é composto por 13 dígitos.`);
         } else {
           document.getElementById('iBusca').click();
         }

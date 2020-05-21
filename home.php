@@ -29,13 +29,8 @@
         require_once './cabecalho.php';
       ?>
       
-      <section id="corpo">
-        <p>Testando tela inicial/home</p>
-      <!--  <p>Testando tela de painel/opções</p>
-        <p>Testando tela de painel/opções</p>
-        <p>Testando tela de painel/opções</p>
-        <p>Testando tela de painel/opções</p>
-        <p>Testando tela de painel/opções</p>-->
+      <section id='corpo'>
+        
       </section>
 
       <?php 

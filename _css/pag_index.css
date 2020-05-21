@@ -4,6 +4,15 @@ div#interface {
   height: 850px;
 }
 
+header#cabecalho {
+  margin-bottom: 0px;
+#border: 1px solid red;
+}
+
+hr {
+  margin-top: 0px;
+}
+
 div#quem_somos {
   width: 300px;
   #position: relative;

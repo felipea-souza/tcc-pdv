@@ -13,29 +13,12 @@
     <title>Sistema PDV</title>
     <link rel="stylesheet" type="text/css" href="./_css/estilo.css">
     <link rel="shortcut icon" href="./_imagens/fav-icon.png" type="image/x-icon">
-    <style>
-      table.busca {
-        font-size: 11px;
-      }
-      ul#alinhar {
-          padding-left: 0px;
-          margin-bottom: 14px;
-      }
-      li {
-        display: inline-block;
-      }
-      img#adicionar {
-        position: relative;
-        top: 6px;
-      }
-    </style>
   </head>
 
   <body>
     <div id="interface">
-
       <?php 
-        $nome_pag = "Página de Fornecedores";
+        $nome_pag = "Fornecedores";
         $icone_pag = "fornecedores.png";
         $iconeMouseOut = "fornecedores.png";
         $bread_crumb = "Home > Fornecedores";
@@ -43,48 +26,38 @@
         require_once './cabecalho.php';
       ?>
 
-      <a title="Voltar" href="./home.php"><img id="voltar-home" src="./_imagens/voltar.png"/></a>
+      <a title="Voltar" href="javascript:history.go(-1)"><img id="voltar-home" src="./_imagens/voltar.png"/></a>
 
       <?php
-        $chave = $_GET["cBusca"] ?? "";
+        $cnpjForm = $_GET['cnpjForm'] ?? null;
 
         if (!isAdmin()) {
           echo msgAviso("Área restrita!</p><p>Você não é administrador.");
         } else {
-                echo "<ul id='alinhar'><li><form id='busca' action='./fornecedores.php' method='get'>
-                        <input type='hidden' name='iBusca' value='buscar'>
+                if (empty($cnpjForm)){
+                  # Verificar se o fornecedor se encontra ou não cadastrado no sistema
+                  echo "<form class='cadastro' action='fornecedores.php' method='get'><fieldset><legend>Cadastrar Novo Fornecedor</legend>
+                        <p>CNPJ: <input type='text' name='cnpjForm' id='cnpjForm' maxlength='18' size='18'  placeholder='Somente números' onkeypress='return validarCNPJ(event)'> 
+                        <a href='javascript:validarCampoCNPJ()'><img src='./_imagens/buscar.png' id='busca' title='Verificar'></a>
+                        <input type='submit' class='buscar' id='submit' name='tBuscar' title='Buscar' src='./_imagens/buscar.png' style='display: none;'></p>
+                      </form></form>";
+                } else {
+                        $query = "SELECT cnpj, razao_social, nome_fantasia, rua, cep, bairro, tel, cel FROM fornecedores WHERE cnpj = '$cnpjForm'";
+                                   $consulta = $conexao->query($query);
 
-                        Buscar: <input type='text' name='cBusca' id='cBusca' size='20' maxlength='30'/> <input type='image' class='buscar' id='iBusca' name='iBusca' title='Buscar' src='./_imagens/buscar.png'/>
-                      </form></li>
-
-                      <li><a href='./fornecedores-cadastrar.php' title='Adicionar novo produto'><img id='adicionar' src='./_imagens/adicionar.png'/></a></li></ul>
-                    
-                      <table class='busca'>";
-                  
-                      $query = "select cnpj, razao_social, nome_fantasia, rua, cep, bairro, tel, cel from fornecedores";
-
-                      if(!empty($chave)) {
-                        $query .= " WHERE cnpj LIKE '%$chave%' OR razao_social LIKE '%$chave%' OR nome_fantasia LIKE '%$chave%' OR rua LIKE '%$chave%' OR cep LIKE '%$chave%' OR bairro LIKE '%$chave%' OR tel LIKE '%$chave%' OR cel LIKE '%$chave%'";
-                      }
-
-                      $consulta = $conexao->query($query);
-                        if (!$consulta) {
-                          echo "<tr><td style='font-style: italic;'>Infelizmente, não foi possível realizar a consulta!</td></tr>";
-                        }
-                          else {
-                                if ($consulta->num_rows == 0) {
-                                    echo "<tr><td style='font-style: italic;'>Nenhum registro encontrado!</td></tr>";
-                                } else {
-                                        echo "<tr id='cabecalho'><td>CNPJ</td><td>Razão Social</td><td>Nome Fantasia</td><td>Rua</td><td>CEP</td><td>Bairro</td><td>Telefone</td><td>Celular</td><td></td></tr>";
-                                        $i = 0;
-                                        while ($reg = $consulta->fetch_object()) {
-                                          echo "<tr><td>$reg->cnpj</td><td>$reg->razao_social</td><td>$reg->nome_fantasia</td><td>$reg->rua</td><td>$reg->cep</td><td>$reg->bairro</td><td>$reg->tel</td><td>$reg->cel</td><td><a title='Editar' href='fornecedores-edit.php?cnpj=$reg->cnpj'><img src='./_imagens/editar.png'/></a> <a title='Excluir' href='fornecedores-delete.php?cnpj=$reg->cnpj'><img src='./_imagens/deletar.png'/></a></td></tr>";
-                                          $i++;
-                                        }
-                                  }  
-                          }
+                                   if (!$consulta) {
+                                     echo "Não foi possível realizar a consulta!";
+                                   } else { 
+                                           if ($consulta->num_rows == 0) {
+                                            header("Location: ./fornecedores-cadastrar.php?cnpj=$cnpjForm");
+                                           } else {
+                                                   $reg = $consulta->fetch_object();
+                                                   header("Location: ./fornecedores-edit.php?cnpj=$reg->cnpj&razao=$reg->razao_social&fant=$reg->nome_fantasia&rua=$reg->rua&cep=$reg->cep&ba=$reg->bairro&tel=$reg->tel&cel=$reg->cel"); 
+                                             }
+                                     }
+                }
                 
-          echo "</table>";
+
           }
       ?>
     </div>
@@ -92,5 +65,46 @@
     <?php include_once "./rodape.php"; ?>
 
     <script type="text/javascript" src="./_javascript/funcoes.js"></script>
+    <script>
+      //Funções para validação de formatos de campos (onkeypress)
+      function validarCNPJ(e) {
+
+        cnpj = document.getElementById('cnpjForm');
+
+        var charCode = e.charCode ? e.charCode : e.keyCode;
+        // charCode 8 = backspace   
+        // charCode 9 = tab
+        if (charCode != 8 && charCode != 9) {
+            // charCode 48 equivale a 0   
+            // charCode 57 equivale a 9
+            if (charCode < 48 || charCode > 57) {
+                return false;
+            } else {
+                    if (cnpj.value.length == 2 || cnpj.value.length == 6) {
+                      cnpj.value += `.`;
+                    }
+
+                    if (cnpj.value.length == 10) {
+                      cnpj.value += `/`;
+                    }
+
+                    if (cnpj.value.length == 15) {
+                      cnpj.value += `-`;
+                    }
+              }
+        }
+      }
+
+      // Funções para verificação de campos vazios de formulários (submit)
+      function validarCampoCNPJ() {
+        cnpjVerificar = document.getElementById('cnpjForm').value;
+
+        if (cnpjVerificar.length < 18) {
+          window.alert(`O campo "CNPJ" possui 14 dígitos numéricos!`);
+        } else {
+          document.getElementById(`submit`).click();
+        }
+      }
+    </script>
   </body>
 </html>

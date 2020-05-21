@@ -18,7 +18,7 @@
 
   <body>
     <div id="interface">
-      <header id="cabecalho" style="margin-bottom: 0px;">
+      <header id="cabecalho">
         <hgroup>
           <h1>Sistema de Gestão PDV</h1> 
           <h2>Armazém Santo Antônio</h2>
@@ -26,11 +26,11 @@
         </hgroup>
       </header>
 
-      <hr style="margin-top: 0px;">
+      <hr>
 
       <div id="quem_somos">
         <h1>Quem Somos</h1>
-        <p>O armazém Santo Antônio é uma micro empresa familiar formada no ano 2000 que tem o intuito de trazer aos nossos clientes produtos de qualidade e variedade, ótimos preços, atendimento com excelência e um ambiente aconchegante para atender o público.</p>
+        <p><em>O armazém Santo Antônio é uma micro empresa familiar formada no ano 2000 que tem o intuito de trazer aos nossos clientes produtos de qualidade e variedade, ótimos preços, atendimento com excelência e um ambiente aconchegante para atender o público</em>.</p>
         <img src="./_imagens/fachada.jpeg">
       </div>
 
@@ -83,12 +83,12 @@
 
       <div id="missao">
         <h1>Missão</h1>
-        <p>Nossa missão é oferecer produtos e atendimento que superem as expectativas de nossos clientes, garantindo a qualidade e a procedência de todo o nosso estoque e investindo na qualidade, eficiência do atendimento e ótimos preços.</p>
+        <p><em>Nossa missão é oferecer produtos e atendimento que superem as expectativas de nossos clientes, garantindo a qualidade e a procedência de todo o nosso estoque e investindo na qualidade, eficiência do atendimento e ótimos preços</em>.</p>
       </div> 
 
       <div id="visao">
         <h1>Visão</h1>
-        <p>Nossa visão consite basicamente em nos tornar em referência</p>
+        <p><em>Nossa visão é ser uma empresa e estar sempre estar a frente dos demais no mercado de armazéns e ser reconhecida pelos clientes pelos ótimos preços e atendimento de qualidade e a cada dia evoluir no mercado comercial</em>.</p>
       </div>
     </div>
 

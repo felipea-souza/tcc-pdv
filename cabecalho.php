@@ -16,6 +16,12 @@ echo "
 echo "
         <!-- <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='institucional.php'>Institucional</a></li> -->
       </ul>
+
+      <ul id='relatorios' onmouseover='abreMenu()' onmouseout='fechaMenu()'>
+        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' style='width: 150px;'>Relatórios</li>
+        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./produtos-relatorio.php'>Produtos</a></li>
+        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./fornecedores-relatorio.php'>Fornecedores</a></li>
+      </ul>
     </nav>
 
     <hgroup>

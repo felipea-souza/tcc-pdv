@@ -3,7 +3,6 @@
 <?php
   session_start();
   require_once './_includes/funcoes.php';
-  #require_once './_includes/verifica_login.php';
   isLogged();
   require_once './_includes/connection.php';
 ?>
@@ -30,10 +29,9 @@
         require_once './cabecalho.php';
       ?>
 
-      <a title="Voltar" href="./produtos.php"><img id="voltar-produto" src="./_imagens/voltar.png"/></a>
+      <a title="Voltar" href="javascript:history.go(-1)"><img id="voltar-produto" src="./_imagens/voltar.png"/></a>
       
       <?php 
-
         if (!isAdmin()) {
           echo msgAviso("Área restrita!</p> <p>Você não é administrador.");
         } else {
@@ -43,28 +41,32 @@
                   $quant = $_GET['qtd'] ?? null;
                   $preco = $_GET['prc'] ?? null;
 
-                  echo "<form class='editar' action='./produtos-edit.php' method='get'><fieldset><legend>Alterar Produto</legend>";
+                  echo "<fieldset class='editar'><legend>Alterar Produto</legend><form action='./produtos-edit.php' method='get'>";
                     echo "<p>Cod. Barra: <input type='text' id='codBarraForm' name='codBarraForm' size='13' maxlenght='13' value='$codBarra' readonly style='background-color: #ebebe4;'/></p>";
                     echo "<p>Produto: <input type='text' id='produtoForm' name='produtoForm' size='20' maxlength='40' value='$produto'/></p>";
                     echo "<p>Quant.: <input type='number' min='0' id='quantForm' name='quantForm' size='3' maxlength='3' value='$quant'/></p>";
                     $preco = str_replace('.', ',', $preco);
                     echo "<p>Preço: R$ <input type='text' id='precoForm' name='precoForm' size='10' maxlength='10' value='$preco'/></p>";
-                    echo "<ul id='botoes'>";
-                      echo "<li><input type='button' value='Salvar Alteração' onclick='validarCampos()'></li>";
+
+                    echo "<ul class='botoes'>";
+                      echo "<li><input type='button' value='Salvar Alteração' onclick='validarCamposProduto()'></li>";
                       echo "<li><input type='submit' id='submit' value='Salvar' style='display: none;'></li>";
-                      echo "<li><a href='./produtos-delete.php?$codBarra'><input type='button' href='www.google.com' value='EXCLUIR'></a></li>";
-                    echo "</ul>";
-                  echo "</fieldset></form>";
+                  echo "</form><li><a href='javascript:confirmacao($codBarra)'><input type='button' value='EXCLUIR'></a></li></ul></fieldset>";
                 } else {
-                        $codBarraForm = $_GET['codBarraForm'];
-                        $produto = $_GET['produtoForm'];
-                        $quant = $_GET['quantForm'];
-                        $preco = str_replace(",", ".", $_GET['precoForm']);
-                        if ($conexao->query("UPDATE estoque SET produto = '$produto', quant = '$quant', preco = '$preco' WHERE cod_barra = '$codBarraForm'")) {
-                          echo msgSucesso("Produto alterado com sucesso!");
+                        $codBarraForm = $_GET['codBarraForm'] ?? null;
+                        if (!isset($codBarraForm)) {
+                          echo msgAviso("Nenhum produto foi previamente verificado para alteração!");
                         } else {
-                                echo msgErro("Não foi possível alterar os dados do produto!");
+                                $produtoForm = $_GET['produtoForm'];
+                                $quantForm = $_GET['quantForm'];
+                                $precoForm = str_replace(",", ".", $_GET['precoForm']);
+                                if ($conexao->query("UPDATE estoque SET produto = '$produtoForm', quant = '$quantForm', preco = '$precoForm' WHERE cod_barra = '$codBarraForm'")) {
+                                  echo msgSucesso("Produto alterado com sucesso!");
+                                } else {
+                                        echo msgErro("Não foi possível alterar os dados do produto!");
+                                  }
                           }
+                        
                   }
           }
       ?>
@@ -73,19 +75,30 @@
 
     <?php include_once "./rodape.php"; ?>
 
-    <script type="text/javascript" src="_javascript/funcoes.js"></script>
+    <script type="text/javascript" src="./_javascript/funcoes.js"></script>
     <script>
-      function validarCampos() {
-        produto = document.getElementById('produtoForm').value;
-        preco = document.getElementById('precoForm').value;
+      var produto = document.getElementById('produtoForm').value;
+      var quant = document.getElementById('quantForm').value;
+      var preco = document.getElementById('precoForm').value;
 
-        if(produto.length == 0 || preco.length == 0) {
-          window.alert(`Todos os campos devem ser preenchidos!`);
+      // Funções para verificação de campos vazios de formulários (submit)
+      function validarCamposProduto() {
+        produto2 = document.getElementById('produtoForm').value;
+        quant2 = document.getElementById('quantForm').value;
+        preco2 = document.getElementById('precoForm').value;
+
+        if (produto == produto2 && quant == quant2 && preco == preco2) {
+          window.alert(`Não há alteração de dados!`);
         } else {
-          document.getElementById('submit').click();
-        }
+                if(produto2.length == 0 || preco2.length == 0) {
+                  window.alert(`Todos os campos devem ser preenchidos!`);
+                } else {
+                        document.getElementById('submit').click();
+                  }
+          }
       }
-    </script>
+   </script>
+    
   </body>
 
 </html>

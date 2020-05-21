@@ -30,57 +30,95 @@
       <a title="Voltar" href="./fornecedores.php"><img id="voltar-home" src="./_imagens/voltar.png"/></a>
 
       <?php 
-
         if (!isAdmin()) {
           echo msgAviso("Área restrita!</p> <p>Você não é administrador.");
         } else {
-                $cnpj = $_GET['cnpj'] ?? null;
+                if (isset($_GET['cnpj'])) {
+                  $cnpj = $_GET['cnpj'] ?? null;
+                  $razao = $_GET['razao'] ?? null;
+                  $fant = $_GET['fant'] ?? null;
+                  $rua = $_GET['rua'] ?? null;
+                  $cep = $_GET['cep'] ?? null;
+                  $ba = $_GET['ba'] ?? null;
+                  $tel = $_GET['tel'] ?? null;
+                  $cel = $_GET['cel'] ?? null;
 
-                $cnpjForm = $_GET['cnpjForm'] ?? null;
-                $razao = $_GET['razao'] ?? null;
-                $fant = $_GET['fant'] ?? null;
-                $rua = $_GET['rua'] ?? null;
-                $cep = $_GET['cep'] ?? null;
-                $bairro = $_GET['bairro'] ?? null;
-                $tel = $_GET['tel'] ?? null;
-                $cel = $_GET['cel'] ?? null;
+                  echo "<fieldset class='editar'><legend>Alterar Fornecedor</legend><form action='./fornecedores-edit.php' method='get'>";
+                    echo "<p>CNPJ: <input type='text' id='cnpjForm' name='cnpjForm' size='18' maxlenght='18' value='$cnpj' readonly style='background-color: #ebebe4;'/></p>";
+                    echo "<p>Razão Social: <input type='text' id='razaoForm' name='razaoForm' size='20' maxlength='40' value='$razao'/></p>";
+                    echo "<p>Nome Fantasia.: <input type='text' id='fantForm' name='fantForm' size='20' maxlength='20' value='$fant'/></p>";
+                    echo "<p>Rua: <input type='text' id='ruaForm' name='ruaForm' size='30' maxlength='40' value='$rua'/></p>";
+                    echo "<p>CEP: <input type='text' id='cepForm' name='cepForm' size='10' maxlength='10' value='$cep' onkeypress='return validarCEP(event)'></p>";
+                    echo "<p>Bairro: <input type='text' id='bairroForm' name='bairroForm' size='15' maxlength='20' value='$ba'/></p>";
+                    echo "<p>Tel.: <input type='text' id='telForm' name='telForm' size='14' maxlength='14' value='$tel' onkeypress='return validarTel(event)'></p>";
+                    echo "<p>Cel.: <input type='text' id='celForm' name='celForm' size='15' maxlength='15' value='$cel' onkeypress='return validarCel(event)'></p>";
 
-                if (isset($cnpj)) {
-
-                  $consulta = $conexao->query("SELECT cnpj, razao_social, nome_fantasia, rua, cep, bairro, tel, cel FROM fornecedores WHERE cnpj = '$cnpj'");
-
-                  if (!$consulta) {
-                    echo msgErro("Não foi possível buscar o registro deste fornecedor na base de dados!");
-                  } else {
-                          $reg = $consulta->fetch_object();
-
-                          echo "<form class='editar' action='./fornecedores-edit.php' method='get'><fieldset><legend>Alterar Fornecedor</legend>";
-                            echo "<p>CNPJ: <input type='text' id='cnpjForm' name='cnpjForm' size='18' maxlenght='18' value='".$cnpj."' readonly style='background-color: #ebebe4;'/></p>";
-                            echo "<p>Razão Social: <input type='text' id='razao' name='razao' size='20' maxlength='40' value='$reg->razao_social'/></p>";
-                            echo "<p>Nome Fantasia.: <input type='text' id='fant' name='fant' size='20' maxlength='20' value='$reg->nome_fantasia'/></p>";
-                            echo "<p>Rua: <input type='text' id='rua' name='rua' size='30' maxlength='40' value='$reg->rua'/></p>";
-                            echo "<p>CEP: <input type='text' id='cep' name='cep' size='10' maxlength='10' value='$reg->cep' onkeypress='return validarCEP(event)'></p>";
-                            echo "<p>Bairro: <input type='text' id='bairro' name='bairro' size='15' maxlength='20' value='$reg->bairro'/></p>";
-                            echo "<p>Tel.: <input type='text' id='tel' name='tel' size='14' maxlength='14' value='$reg->tel' onkeypress='return validarTel(event)'></p>";
-                            echo "<p>Cel.: <input type='text' id='cel' name='cel' size='15' maxlength='15' value='$reg->cel' onkeypress='return validarCel(event)'></p>";
-
-                            echo "<p><input type='button' value='Salvar' onclick='validarCampos()'></p>";
-                            echo "<p><input type='submit' id='submit' value='Salvar' style='display: none;'></p>";
-                          echo "</fieldset></form>";
-                    }
+                    echo "<ul class='botoes'>";
+                    echo "<li><input type='button' value='Salvar Alteração' onclick='validarCamposFornecedor()'></li>";
+                    echo "<li><input type='submit' id='submit' value='Salvar' style='display: none;'></li>";
+                  echo "</form><li><a href='javascript:confirmacaoForn(`$cnpj`)'><input type='button' value='EXCLUIR'></a></li></ul></fieldset>";
                 } else {
-                        if ($conexao->query("UPDATE fornecedores SET cnpj = '$cnpjForm', razao_social = '$razao', nome_fantasia = '$fant', rua = '$rua', cep = '$cep', bairro = '$bairro', tel = '$tel', cel = '$cel' WHERE cnpj = '$cnpjForm'")) {
-                        echo msgSucesso("Fornecedor alterado com sucesso!");
+                        $cnpjForm = $_GET['cnpjForm'] ?? null;
+                        if(!isset($cnpjForm)) {
+                          echo msgAviso("Nehum fornecedor foi previamente verificado para alteração!");
                         } else {
-                                echo msgErro("Não foi possível alterar os dados do fornecedor!");
+                                $razaoForm = $_GET['razaoForm'];
+                                $fantForm = $_GET['fantForm'];
+                                $ruaForm = $_GET['ruaForm'];
+                                $cepForm = $_GET['cepForm'];
+                                $bairroForm = $_GET['bairroForm'];
+                                $telForm = $_GET['telForm'];
+                                $celForm = $_GET['celForm'];
+                                if ($conexao->query("UPDATE fornecedores SET cnpj = '$cnpjForm', razao_social = '$razaoForm', nome_fantasia = '$fantForm', rua = '$ruaForm', cep = '$cepForm', bairro = '$bairroForm', tel = '$telForm', cel = '$celForm' WHERE cnpj = '$cnpjForm'")) {
+                                  echo msgSucesso("Fornecedor alterado com sucesso!");
+                                  } else {
+                                          echo msgErro("Não foi possível alterar os dados do fornecedor!");
+                                    }
                           }
                   }
-        }
+          } 
       ?>
     </div>
 
     <?php include_once "./rodape.php"; ?>
 
     <script type="text/javascript" src="./_javascript/funcoes.js"></script>
+    <script>
+      var razao = document.getElementById('razaoForm').value;
+      var fant = document.getElementById('fantForm').value;
+      var rua = document.getElementById('ruaForm').value;
+      var cep = document.getElementById('cepForm').value;
+      var bairro = document.getElementById('bairroForm').value;
+      var tel = document.getElementById('telForm').value;
+      var cel = document.getElementById('celForm').value;
+
+      // Funções para verificação de campos vazios de formulários (submit)
+      function validarCamposFornecedor() {
+        //var cnpj = document.getElementById('cnpjForm').value;
+        var razao2 = document.getElementById('razaoForm').value;
+        var fant2 = document.getElementById('fantForm').value;
+        var rua2 = document.getElementById('ruaForm').value;
+        var cep2 = document.getElementById('cepForm').value;
+        var bairro2 = document.getElementById('bairroForm').value;
+        var tel2 = document.getElementById('telForm').value;
+        var cel2 = document.getElementById('celForm').value;
+
+        if (razao == razao2 && fant == fant2 && rua == rua2 && cep == cep2 && bairro == bairro2 && tel == tel2 && cel == cel2) {
+          window.alert("Não há alteração de dados!");
+        } else {
+                if (razao2.length == 0 || fant2.length == 0 || rua2.length == 0 || cep2.length == 0 || bairro2.length == 0) {
+                  window.alert(`Existem campos a serem preenchidos!`);
+                } else {
+                        if (cep2.length < 10) {
+                          window.alert(`O campo "CEP" possui 8 (oito) dígitos numéricos`);
+                        } else {
+                                document.getElementById('submit').click();
+                          }
+                  }
+          }
+
+        
+      }
+    </script>
   </body>
 </html>

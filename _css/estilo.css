@@ -60,14 +60,22 @@ nav#menu ul {
   left: 350px;
 }
 
+nav#menu ul#relatorios {
+  left: 750px;
+}
+
+nav#menu li.items {
+  display: none;
+}
+
 nav#menu li {
   display: inline-block;
   background-color: #dddddd;  
-  padding: 10px;
-  margin: 2px;
+  padding: 8px;
   transition: background-color 1s;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px
+  text-align: center;
+  #border-bottom-left-radius: 15px;
+  #border-bottom-right-radius: 15px
 }
 
 nav#menu li:hover {
@@ -92,7 +100,7 @@ img#homepage {
 img#icone {
   position: absolute;
   top: 30px;
-  right: 350px;
+  right: 150px;
 }
 /*
 img#sair {
@@ -264,6 +272,11 @@ legend {
   font-family: sans-serif;
   font-weight: bold;
   font-size: 13pt;
+}
+
+ul.botoes li {
+  display: inline-block;
+  margin-right: 5px;
 }
 
 
