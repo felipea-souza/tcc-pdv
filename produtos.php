@@ -42,7 +42,7 @@
                           <input type='submit' id='iBusca' name='tBuscar' title='Buscar' src='./_imagens/buscar.png' style='display: none;'></p>
                         </fieldset></form>";
                 } else {
-                        $query = "SELECT cod_barra, produto, quant, preco FROM estoque WHERE cod_barra = '$codBarraForm'";
+                        $query = "SELECT cod_barra, produto, preco FROM produtos WHERE cod_barra = '$codBarraForm'";
                                    $consulta = $conexao->query($query);
 
                                    if (!$consulta) {
@@ -52,7 +52,7 @@
                                             header("Location: ./produtos-cadastrar.php?cb=$codBarraForm");
                                            } else {
                                                    $reg = $consulta->fetch_object();
-                                                   header("Location: ./produtos-edit.php?cb=$reg->cod_barra&pdt=$reg->produto&qtd=$reg->quant&prc=$reg->preco"); 
+                                                   header("Location: ./produtos-edit.php?cb=$reg->cod_barra&pdt=$reg->produto&prc=$reg->preco"); 
                                              }
                                      }
                 }

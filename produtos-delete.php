@@ -9,7 +9,7 @@
 
 <html lang="pt-br">
   <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
     <title>Sistema PDV</title>
 
     <link rel="stylesheet" type="text/css" href="./_css/estilo.css">
@@ -40,7 +40,7 @@
                 if (!isset($codBarra)) { 
                   echo msgAviso("Nenhum produto a ser excluído!");
                 } else {
-                        if ($conexao->query("DELETE FROM estoque WHERE cod_barra = '$codBarra'")) {
+                        if ($conexao->query("DELETE FROM produtos WHERE cod_barra = '$codBarra'")) {
                           echo msgSucesso("Produto excluído com sucesso!");
                         } else {
                                 echo msgErro("Não foi possível excluir o produto!");

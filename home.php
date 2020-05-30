@@ -29,17 +29,32 @@
         require_once './cabecalho.php';
       ?>
       
-      <section id='corpo'>
-        
-      </section>
+      <main id='corpo'>
+        <a class="atividade" href="vendas.php"><div id="vendas">
+          <p>Vendas</p>
+          <img class="atividade" src="./_imagens/vendas.png">
+        </div></a>
+
+        <a class="atividade" href="compras.php"><div id="compras">
+          <p>Compras</p>
+          <img class="atividade" src="./_imagens/compras.png">
+        </div></a>
+      </main>
 
       <?php 
-        $consulta = $conexao->query("SELECT cod_barra, produto, quant FROM estoque WHERE quant <= 10");
+        $consulta = $conexao->query("SELECT produtos.cod_barra AS cod_barra, produtos.produto AS produto, sum(estoque.quant) AS quant FROM estoque
+                                     INNER JOIN produtos_compra 
+                                     ON estoque.id_prod_compra = produtos_compra.id_prod_compra
+
+                                     INNER JOIN produtos
+                                     ON produtos_compra.cod_barra = produtos.cod_barra
+                                     GROUP BY cod_barra
+                                     HAVING quant <= 10");
         if (!$consulta) {
           echo msgErro("Infelizmente não foi possível realizar a consulta!");
         } else {
                 if ($consulta->num_rows == 0) {
-                  echo "<aside class='sucesso'><p><img src='./_imagens/checked.png'> Sem alertas no momento!</p></aside>";
+                  echo "<aside class='sucesso'><p><img src='./_imagens/checked.png'> Sem alertas de estoque no momento!</p></aside>";
                 } else {
                         echo ("<aside class='aviso'><p><img src='./_imagens/exclamacao.png'> Itens com estoque baixo:</p><table>");
                         while ($reg = $consulta->fetch_object()) {

@@ -37,7 +37,7 @@
                 if (empty($cnpjForm)){
                   # Verificar se o fornecedor se encontra ou não cadastrado no sistema
                   echo "<form class='cadastro' action='fornecedores.php' method='get'><fieldset><legend>Cadastrar Novo Fornecedor</legend>
-                        <p>CNPJ: <input type='text' name='cnpjForm' id='cnpjForm' maxlength='18' size='18'  placeholder='Somente números' onkeypress='return validarCNPJ(event)'> 
+                        <p>CNPJ: <input type='text' name='cnpjForm' id='cnpjForm' maxlength='18' size='18'  placeholder='Somente nº' onkeypress='return validarCNPJ(event)'> 
                         <a href='javascript:validarCampoCNPJ()'><img src='./_imagens/buscar.png' id='busca' title='Verificar'></a>
                         <input type='submit' class='buscar' id='submit' name='tBuscar' title='Buscar' src='./_imagens/buscar.png' style='display: none;'></p>
                       </form></form>";

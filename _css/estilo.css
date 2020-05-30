@@ -61,7 +61,9 @@ nav#menu ul {
 }
 
 nav#menu ul#relatorios {
-  left: 750px;
+  left: 880px;
+  padding-left: 0px;
+#border: 1px solid red;
 }
 
 nav#menu li.items {
@@ -208,6 +210,28 @@ div#erro p {
 img.alerta {
   width: 28px;
   margin-bottom: -5px;
+}
+
+
+/*====================*/
+
+
+/* FORMATAÇÃO DA ÁREA DE BUSCA EM "RELATÓRIOS" */
+div#alinhar form, img {
+  display: inline-block;
+}
+
+div#alinhar {
+  margin-bottom: 10px;
+}
+
+img#adicionar {
+  position: relative;
+  top: 6px;
+}
+
+form.buscar {
+  margin-bottom: 10px;
 }
 
 

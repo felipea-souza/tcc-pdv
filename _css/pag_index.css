@@ -68,14 +68,15 @@ img.icone_login {
 input {
   font-family: sans-serif;
   font-weight: normal;
+  width: 223px;
   font-size: 13pt;	
   background-color: rgba(255, 255, 255,.8);
 }
 
 input#bEntrar {
-  margin-left: 55px; 
-  width: 223px; 
+  margin-left: 55px;  
   text-align: left;
+  background-color: #dddddd;
 }
 
 input:hover {

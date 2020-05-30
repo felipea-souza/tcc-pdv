@@ -4,18 +4,38 @@ div#interface {
   height: 800px;
 }
 
-section#corpo {
+main#corpo {
   width: 495px;
   display: block;
   float: left;
-  #margin-top: 50px;
-  #border-left: 1px solid red;
-  #border-right: 1px solid red;
-  
+  #border: 1px solid red;
 }
 
-section#corpo p {
-  margin-left: -20px;
+main#corpo p {
+  color: white;
+  font-weight: bold;
+}
+
+div#vendas {
+  border-radius: 15px;
+  background-color: #33ccff;
+  margin-top: -16px;
+}
+
+div#compras {
+  border-radius: 15px;
+  background-color: #999999;
+}
+
+img.atividade {
+  display: block;
+  margin: auto;
+  position: relative;
+  bottom: 18px;
+}
+
+a.atividade {
+  text-decoration: none;
 }
 
 aside.sucesso {

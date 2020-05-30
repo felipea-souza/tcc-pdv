@@ -130,7 +130,7 @@ function validarCel(e) {
 
 
 //Função para confirmação de exclusão de produto
-function confirmacao(cod_barra) {
+function confirmacaoProduto(cod_barra) {
   var ok = window.confirm(`Deseja realmente excluir este produto? Esta operação não poderá ser desfeita.`);
 
   if (ok) {

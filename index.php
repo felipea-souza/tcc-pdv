@@ -10,7 +10,7 @@
   <head>
     <meta charset="utf-8">
     <title>Sistema PDV</title>
-
+    
     <link rel="stylesheet" type="text/css" href="./_css/estilo.css">
     <link rel="stylesheet" type="text/css" href="./_css/pag_index.css">
     <link rel="shortcut icon" href="./_imagens/fav-icon.png" type="image/x-icon">
