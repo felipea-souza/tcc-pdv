@@ -50,7 +50,7 @@
       <?php 
         $query = "SELECT estoque.lote AS lote, produtos_compra.cod_barra AS cod_barra, produtos.produto AS produto, estoque.quant AS quant, date_format(estoque.validade, '%d/%m/%Y') AS validade FROM estoque
                   INNER JOIN produtos_compra 
-                  ON estoque.id_prod_compra = produtos_compra.id_prod_compra
+                  ON estoque.lote = produtos_compra.lote
 
                   INNER JOIN produtos
                   ON produtos_compra.cod_barra = produtos.cod_barra";

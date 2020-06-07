@@ -5,7 +5,7 @@ function mudaFoto(foto) {
 
 function abreMenu() {
   var i = 0;
-  while (i <= 2) {
+  while (i <= 5) {
    var item = document.getElementsByClassName('items')[i];
    item.style.display = `list-item`;
    i++;
@@ -14,7 +14,7 @@ function abreMenu() {
 
 function fechaMenu() {
   var i = 0;
-  while (i <= 2) {
+  while (i <= 5) {
    var item = document.getElementsByClassName('items')[i];
    item.style.display = `none`;
    i++;
@@ -112,6 +112,69 @@ function validarCel(e) {
   }
 }
 
+function validarEmissao(e) {
+  dt = document.getElementById('dtEmForm');
+
+  var charCode = e.charCode ? e.charCode : e.keyCode;
+
+  if (charCode != 8 && charCode != 9) {
+      if (charCode < 48 || charCode > 57) {
+          return false;
+      } else {
+              if (dt.value.length == 2 || dt.value.length == 5) {
+                dt.value += `/`;
+              }
+        }
+  }
+}
+
+function validarReceb(e) {
+  dt = document.getElementById('dtRecForm');
+
+  var charCode = e.charCode ? e.charCode : e.keyCode;
+
+  if (charCode != 8 && charCode != 9) {
+      if (charCode < 48 || charCode > 57) {
+          return false;
+      } else {
+              if (dt.value.length == 2 || dt.value.length == 5) {
+                dt.value += `/`;
+              }
+        }
+  }
+}
+
+function validarVenc(e) {
+  dt = document.getElementById('vctForm1');
+
+  var charCode = e.charCode ? e.charCode : e.keyCode;
+
+  if (charCode != 8 && charCode != 9) {
+      if (charCode < 48 || charCode > 57) {
+          return false;
+      } else {
+              if (dt.value.length == 2 || dt.value.length == 5) {
+                dt.value += `/`;
+              }
+        }
+  }
+}
+
+function validarValid(e) {
+  dt = document.getElementById('vldForm1');
+
+  var charCode = e.charCode ? e.charCode : e.keyCode;
+
+  if (charCode != 8 && charCode != 9) {
+      if (charCode < 48 || charCode > 57) {
+          return false;
+      } else {
+              if (dt.value.length == 2 || dt.value.length == 5) {
+                dt.value += `/`;
+              }
+        }
+  }
+}
 
 //====================
 
@@ -129,7 +192,7 @@ function validarCel(e) {
 
 
 
-//Função para confirmação de exclusão de produto
+//Funções para confirmação de exclusão
 function confirmacaoProduto(cod_barra) {
   var ok = window.confirm(`Deseja realmente excluir este produto? Esta operação não poderá ser desfeita.`);
 
@@ -143,5 +206,13 @@ function confirmacaoForn(cnpj) {
 
   if (ok) {
     location.href=`./fornecedores-delete.php?cnpj=${cnpj}`;
+  }
+}
+
+function confirmacaoBoleto(bol) {
+  var ok = window.confirm(`Deseja realmente excluir este boleto do sistema? Esta operação não poderá ser desfeita.`);
+
+  if (ok) {
+    location.href=`./boleto-delete.php?bol=${bol}`;
   }
 }

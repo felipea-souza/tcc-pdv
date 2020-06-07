@@ -44,14 +44,14 @@
       <?php 
         $consulta = $conexao->query("SELECT produtos.cod_barra AS cod_barra, produtos.produto AS produto, sum(estoque.quant) AS quant FROM estoque
                                      INNER JOIN produtos_compra 
-                                     ON estoque.id_prod_compra = produtos_compra.id_prod_compra
+                                     ON estoque.lote = produtos_compra.lote
 
                                      INNER JOIN produtos
                                      ON produtos_compra.cod_barra = produtos.cod_barra
                                      GROUP BY cod_barra
-                                     HAVING quant <= 10");
+                                     HAVING quant <= 15");
         if (!$consulta) {
-          echo msgErro("Infelizmente não foi possível realizar a consulta!");
+          echo msgErro("Infelizmente, não foi possível realizar a consulta!");
         } else {
                 if ($consulta->num_rows == 0) {
                   echo "<aside class='sucesso'><p><img src='./_imagens/checked.png'> Sem alertas de estoque no momento!</p></aside>";

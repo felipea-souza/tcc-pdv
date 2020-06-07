@@ -28,7 +28,7 @@
         $nome_pag = "Relatório de Produtos";
         $icone_pag = "documento.png";
         $iconeMouseOut = "documento.png";
-        $bread_crumb = "Home > Produtos > Relatório de Produtos";
+        $bread_crumb = "Home > Relatórios > Relatório de Produtos";
 
         require_once './cabecalho.php';
       ?>

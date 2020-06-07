@@ -50,7 +50,7 @@
                     echo "<ul class='botoes'>";
                       echo "<li><input type='button' value='Salvar Alteração' onclick='validarCamposProduto()'></li>";
                       echo "<li><input type='submit' id='submit' value='Salvar' style='display: none;'></li>";
-                  echo "</form><li><a href='javascript:confirmacaoProduto($codBarra)'><input type='button' value='EXCLUIR'></a></li></ul></fieldset>";
+                  echo "</form><li><a href='javascript:confirmacaoProduto(`$codBarra`)'><input type='button' value='EXCLUIR'></a></li></ul></fieldset>";
                 } else {
                         $codBarraForm = $_GET['codBarraForm'] ?? null;
                         if (!isset($codBarraForm)) {

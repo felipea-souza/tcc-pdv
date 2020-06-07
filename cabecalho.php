@@ -22,6 +22,9 @@ echo "
         <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./produtos-relatorio.php'>Produtos</a></li>
         <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./fornecedores-relatorio.php'>Fornecedores</a></li>
         <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./estoque-relatorio.php'>Estoque</a></li>
+        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./contas-relatorio.php'>Contas a Pagar</a></li>
+        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./notas-fiscais-relatorio.php'>Notas Fiscais</a></li>
+        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./compras-relatorio.php'>Compras</a></li>
       </ul>
     </nav>
 
@@ -41,7 +44,7 @@ echo "
 
   $nome = explode(" ", $_SESSION['nome']);
 
-  echo "<p>Olá, ";
+  echo "<p style='font-size: 14px;'>Olá, ";
     for ($i=0; $i<=1; $i++) {
       echo ("$nome[$i] ");
     }
