@@ -29,14 +29,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Alterar Boleto";
+      $icone_pag = "compras.png";
+      $iconeMouseOut = "compras.png";
+      $bread_crumb = "Página Inicial > Compras > Alterar Nota Fiscal > Boletos";
+
+      require_once './menu.php';
+    ?>
     <div id="interface">
 
-      <?php 
-        $nome_pag = "Alterar Boleto";
-        $icone_pag = "compras.png";
-        $iconeMouseOut = "compras.png";
-        $bread_crumb = "Home > Compras > Alterar Nota Fiscal > Boletos";
-
+      <?php
         require_once './cabecalho.php';
       ?>
 

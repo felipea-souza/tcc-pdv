@@ -16,14 +16,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Alterar Meus Dados";
+      $icone_pag = "user.png";
+      $iconeMouseOut = "user.png";
+      $bread_crumb = "Página Inicial > Meus Dados";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
-      <?php 
-        $nome_pag = "Alterar Meus Dados";
-        $icone_pag = "user.png";
-        $iconeMouseOut = "user.png";
-        $bread_crumb = "Home > Meus Dados";
-
+      <?php
         require_once './cabecalho.php';
       ?>
 

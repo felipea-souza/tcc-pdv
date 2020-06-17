@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 div#interface {
+  margin: -8px auto 0px auto;
   height: 850px;
 }
 

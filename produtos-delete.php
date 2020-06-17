@@ -18,14 +18,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Excluir Produto";
+      $icone_pag = "produtos.png";
+      $iconeMouseOut = "produtos.png";
+      $bread_crumb = "Página Inicial > Produtos > Listar Produtos > Excluir Produto";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
       <?php 
-        $nome_pag = "Excluir Produto";
-        $icone_pag = "produtos.png";
-        $iconeMouseOut = "produtos.png";
-        $bread_crumb = "Home > Produtos > Listar Produtos > Excluir Produto";
-
         require_once './cabecalho.php';
       ?>
 

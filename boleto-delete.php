@@ -16,18 +16,20 @@
   </head>
 
   <body>
-    <div id="interface">
-
-      <?php 
+    <?php 
         $nome_pag = "Excluir Boleto";
         $icone_pag = "compras.png";
         $iconeMouseOut = "compras.png";
-        $bread_crumb = "Home > Compras > Alterar Nota Fiscal > Boletos > Excluir Boleto";
+        $bread_crumb = "Página Inicial > Compras > Alterar Nota Fiscal > Boletos > Excluir Boleto";
 
-        require_once './cabecalho.php';
+        require_once './menu.php';
       ?>
 
+    <div id="interface">
+
       <?php 
+        require_once './cabecalho.php';
+        
         if (!isAdmin()) {
           echo "<a title='Voltar' href='javascript:history.go(-1)'><img id='voltar-home' src='./_imagens/voltar.png'></a>";
           echo msgAviso("Área restrita!</p> <p>Você não é administrador.");

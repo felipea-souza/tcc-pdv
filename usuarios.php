@@ -17,14 +17,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Usuários";
+      $icone_pag = "users.png";
+      $iconeMouseOut = "users.png";
+      $bread_crumb = "Página Inicial > Usuários";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
       <?php 
-        $nome_pag = "Usuários";
-        $icone_pag = "users.png";
-        $iconeMouseOut = "users.png";
-        $bread_crumb = "Home > Usuários";
-
         require_once './cabecalho.php';
       ?>
 

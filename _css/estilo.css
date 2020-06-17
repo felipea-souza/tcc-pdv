@@ -24,9 +24,9 @@ a:hover {
 div#interface {
   width: 950px;	
   background-color: #ffffff;
-  margin: -20px auto 0px auto;
+  margin: -8px auto 0px 215px;
   box-shadow: 0px 0px 10px rgba(0,0,0, .5);
-  padding: 10px 15px 20px 15px;
+  padding: 5px 15px 20px 15px;
 }
 
 input.buscar {
@@ -40,7 +40,7 @@ input.buscar {
 
 /* FORMATAÇÃO DA ÁREA DE CABEÇHALHO */
 header#cabecalho {
-  margin-top: 50px;
+  margin-top: 35px;
   height: 120px;
   margin-bottom: 50px;
 
@@ -49,21 +49,22 @@ header#cabecalho {
 
 /* Formatação do Menu */
 nav#menu {
-  display: block; 
+  #display: block;
+  width: 245px;
+  position: absolute;
+  #float: left;
+  left: -22px;
+  padding-top: 149px;
+#border: 1px solid red;
 }
 
 nav#menu ul {
   list-style: none;
   text-transform: uppercase;
-  position: absolute;
-  top: -20px;
-  left: 350px;
-}
-
-nav#menu ul#relatorios {
-  left: 880px;
-  padding-left: 0px;
+  position: relative;
+  #left: 0px;
 #border: 1px solid red;
+background-color: rgb(153,153,153);
 }
 
 nav#menu li.items {
@@ -71,13 +72,12 @@ nav#menu li.items {
 }
 
 nav#menu li {
-  display: inline-block;
-  background-color: #dddddd;  
-  padding: 8px;
+  #background-color: rgba(221, 221, 221, 0);  
+  padding: 4px;
   transition: background-color 1s;
   text-align: center;
-  #border-bottom-left-radius: 15px;
-  #border-bottom-right-radius: 15px
+  margin-left: -18px;
+  border: 0.5px solid #464646;
 }
 
 nav#menu li:hover {
@@ -95,14 +95,14 @@ nav#menu a:hover {
 /* Formatação de Ícones */
 img#homepage {
   position: absolute;
-  top: 130px;
+  top: 126px;
   width: 40px;
 }
 
 img#icone {
   position: absolute;
   top: 30px;
-  right: 96px;
+  right: 110px;
 }
 /*
 img#sair {

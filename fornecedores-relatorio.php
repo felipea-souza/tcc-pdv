@@ -21,14 +21,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Página de Fornecedores";
+      $icone_pag = "documento.png";
+      $iconeMouseOut = "documento.png";
+      $bread_crumb = "Página Inicial > Fornecedores";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
-      <?php 
-        $nome_pag = "Página de Fornecedores";
-        $icone_pag = "documento.png";
-        $iconeMouseOut = "documento.png";
-        $bread_crumb = "Home > Fornecedores";
-
+      <?php
         require_once './cabecalho.php';
       ?>
 
@@ -41,13 +44,7 @@
           Buscar: <input type="text" name="cBusca" id="cBusca" size="20" maxlength="30"> <input type="image" class="buscar" id="iBusca" name="iBusca" title="Buscar" src="./_imagens/buscar.png">
         </form>
 
-        <?php
-          if (isAdmin()) {
-            echo "<a href='./fornecedores.php' title='Adicionar novo produto'><img id='adicionar' src='./_imagens/adicionar.png'/></a>";
-          }
-        ?>
       </div>
-
       <?php
         $chave = $_GET["cBusca"] ?? "";
         $query = "SELECT cnpj, razao_social, nome_fantasia, rua, cep, bairro, tel, cel FROM fornecedores";
@@ -64,18 +61,10 @@
                   if ($consulta->num_rows == 0) {
                       echo "<tr><td style='font-style: italic;'>Nenhum registro encontrado!</td></tr>";
                   } else {
-                          if (isAdmin()) {
-                            echo "<tr id='cabecalho'><td>CNPJ</td><td>Razão Social</td><td>Nome Fantasia</td><td>Rua</td><td>CEP</td><td>Bairro</td><td>Telefone</td><td>Celular</td><td></td></tr>";
-                            while ($reg = $consulta->fetch_object()) {
-                              echo "<tr><td>$reg->cnpj</td><td>$reg->razao_social</td><td>$reg->nome_fantasia</td><td>$reg->rua</td><td>$reg->cep</td><td>$reg->bairro</td><td>$reg->tel</td><td>$reg->cel</td><td><a title='Editar' href='fornecedores-edit.php?cnpj=$reg->cnpj&razao=$reg->razao_social&fant=$reg->nome_fantasia&rua=$reg->rua&cep=$reg->cep&ba=$reg->bairro&tel=$reg->tel&cel=$reg->cel'><img src='./_imagens/editar.png'/></a> <a title='Excluir' href='javascript:confirmacaoForn(`$reg->cnpj`);'><img src='./_imagens/deletar.png'/></a></td></tr>";
-                            }
-                          
-                          } else {
-                                  echo "<tr id='cabecalho'><td>CNPJ</td><td>Razão Social</td><td>Nome Fantasia</td><td>Rua</td><td>CEP</td><td>Bairro</td><td>Telefone</td><td>Celular</td></tr>";
+                          echo "<tr id='cabecalho'><td>CNPJ</td><td>Razão Social</td><td>Nome Fantasia</td><td>Rua</td><td>CEP</td><td>Bairro</td><td>Telefone</td><td>Celular</td></tr>";
                                   while ($reg = $consulta->fetch_object()) {
                                     echo "<tr><td>$reg->cnpj</td><td>$reg->razao_social</td><td>$reg->nome_fantasia</td><td>$reg->rua</td><td>$reg->cep</td><td>$reg->bairro</td><td>$reg->tel</td><td>$reg->cel</td></tr>";
-                                  }
-                            }
+                                  }      
                     }  
             }
         echo "</table>";   

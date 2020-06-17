@@ -16,18 +16,19 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Alterar Boleto";
+      $icone_pag = "compras.png";
+      $iconeMouseOut = "compras.png";
+      $bread_crumb = "Página Inicial > Compras > Alterar Nota Fiscal > Boletos > Editar Boleto";
+
+      require_once './menu.php';
+    ?>
     <div id="interface">
 
-      <?php 
-        $nome_pag = "Alterar Boleto";
-        $icone_pag = "compras.png";
-        $iconeMouseOut = "compras.png";
-        $bread_crumb = "Home > Compras > Alterar Nota Fiscal > Boletos > Editar Boleto";
-
+      <?php
         require_once './cabecalho.php';
-      ?>
-
-      <?php 
+        
         if (!isAdmin()) {
           echo msgAviso("Área restrita!</p> <p>Você não é administrador.");
         } else {

@@ -16,14 +16,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "nome_pag";
+      $icone_pag = "icone_pag.png";
+      $iconeMouseOut = "iconeMouseOut.png";
+      $bread_crumb = "Página Inicial > pag2 > pag3";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
       <?php 
-        $nome_pag = "nome_pag";
-        $icone_pag = "icone_pag.png";
-        $iconeMouseOut = "iconeMouseOut.png";
-        $bread_crumb = "Home > pag2 > pag3";
-
         require_once './cabecalho.php';
       ?>
 

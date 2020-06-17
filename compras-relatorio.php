@@ -16,16 +16,19 @@
   </head>
 
   <body>
-    <div id="interface">
+    <?php 
+      $nome_pag = "Relatório de Compras";
+      $icone_pag = "documento.png";
+      $iconeMouseOut = "documento.png";
+      $bread_crumb = "Página Inicial > Relatórios > Relatório de Compras";
 
+      require_once './menu.php';
+    ?>
+
+    <div id="interface">
       <?php
         $chave = $_GET["cBusca"] ?? "";
         $ordem = $_GET["o"] ?? "";
-
-        $nome_pag = "Relatório de Compras";
-        $icone_pag = "documento.png";
-        $iconeMouseOut = "documento.png";
-        $bread_crumb = "Home > Relatórios > Relatório de Compras";
 
         require_once './cabecalho.php';
       ?>

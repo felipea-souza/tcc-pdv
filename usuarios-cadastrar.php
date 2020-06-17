@@ -18,14 +18,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Página de Cadastro de Novo Usuário";
+      $icone_pag = "users.png";
+      $iconeMouseOut = "users.png";
+      $bread_crumb = "Página Inicial > Usuários > Adicionar Novo Usuário";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
-      <?php 
-        $nome_pag = "Página de Cadastro de Novo Usuário";
-        $icone_pag = "users.png";
-        $iconeMouseOut = "users.png";
-        $bread_crumb = "Home > Usuários > Adicionar Novo Usuário";
-
+      <?php
         require_once './cabecalho.php';
       ?>
 

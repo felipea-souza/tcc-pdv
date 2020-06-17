@@ -16,13 +16,17 @@
   </head>
 
   <body>
-    <div id="interface">
-      <?php 
-        $nome_pag = "Fornecedores";
-        $icone_pag = "fornecedores.png";
-        $iconeMouseOut = "fornecedores.png";
-        $bread_crumb = "Home > Fornecedores";
+    <?php 
+      $nome_pag = "Fornecedores";
+      $icone_pag = "fornecedores.png";
+      $iconeMouseOut = "fornecedores.png";
+      $bread_crumb = "Página Inicial > Fornecedores";
 
+      require_once './menu.php';
+    ?>
+    
+    <div id="interface">
+      <?php
         require_once './cabecalho.php';
       ?>
 

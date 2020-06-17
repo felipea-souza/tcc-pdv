@@ -18,18 +18,21 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Alterar Produto";
+      $icone_pag = "produtos.png";
+      $iconeMouseOut = "produtos.png";
+      $bread_crumb = "Página Inicial > Produtos > Alterar Produto";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
-      <?php 
-        $nome_pag = "Alterar Produto";
-        $icone_pag = "produtos.png";
-        $iconeMouseOut = "produtos.png";
-        $bread_crumb = "Home > Produtos > Alterar Produto";
-
+      <?php
         require_once './cabecalho.php';
       ?>
 
-      <a title="Voltar" href="javascript:history.go(-1)"><img id="voltar-produto" src="./_imagens/voltar.png"/></a>
+      <a title="Voltar" href="./produtos.php"><img id="voltar-produto" src="./_imagens/voltar.png"/></a>
       
       <?php 
         if (!isAdmin()) {

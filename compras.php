@@ -16,14 +16,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Compras";
+      $icone_pag = "compras.png";
+      $iconeMouseOut = "compras.png";
+      $bread_crumb = "Página Inicial > Compras";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
       <?php 
-        $nome_pag = "Compras";
-        $icone_pag = "compras.png";
-        $iconeMouseOut = "compras.png";
-        $bread_crumb = "Home > Compras";
-
         require_once './cabecalho.php';
       ?>
 

@@ -18,14 +18,17 @@
   </head>
 
   <body>
+    <?php
+      $nome_pag = "Página Inicial";
+      $icone_pag = "home.png";
+      $iconeMouseOut = "home.png";
+      $bread_crumb = "Página Inicial";
+      
+      require_once './menu.php';
+    ?>
+    
     <div id="interface">
-
       <?php 
-        $nome_pag = "Página Inicial";
-        $icone_pag = "home.png";
-        $iconeMouseOut = "home.png";
-        $bread_crumb = "Home";
-
         require_once './cabecalho.php';
       ?>
       
@@ -37,7 +40,7 @@
 
         <a class="atividade" href="compras.php"><div id="compras">
           <p>Compras</p>
-          <img class="atividade" src="./_imagens/compras.png">
+          <img class="atividade" src="./_imagens/compras.png" style="width: 50px;">
         </div></a>
       </main>
 

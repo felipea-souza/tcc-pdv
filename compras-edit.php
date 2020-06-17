@@ -16,14 +16,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Alterar Nota Fiscal";
+      $icone_pag = "compras.png";
+      $iconeMouseOut = "compras.png";
+      $bread_crumb = "Página Inicial > Compras > Alterar Nota Fiscal";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
       <?php 
-        $nome_pag = "Alterar Nota Fiscal";
-        $icone_pag = "compras.png";
-        $iconeMouseOut = "compras.png";
-        $bread_crumb = "Home > Compras > Alterar Nota Fiscal";
-
         require_once './cabecalho.php';
       ?>
 
@@ -51,7 +54,7 @@
                           echo "<p>Total: R$ <input type='text' id='totForm' name='totForm' maxlength='10' size='10'  value='$total'></p>
                           <p>Pagto: <input type='text' id='pagtoForm' name='pagtoForm' value='$forma' readonly style='background-color: #ebebe4;'>";
                           if ($forma == 'Boleto') {
-                            echo "<a href='./boletos-visualizar.php?nf=$nf' title='Editar boleto'><img src='./_imagens/editar.png' style='position: relative; left: 5px; top: 4px;'></a>";
+                            echo "<a href='./boletos-visualizar.php?nf=$nf' title='Ver boleto'><img src='./_imagens/ver.png' style='position: relative; left: 5px; top: 4px;'></a>";
                           }
                           echo "</p>";
 

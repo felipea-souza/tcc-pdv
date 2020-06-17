@@ -16,14 +16,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Excluir Usuário";
+      $icone_pag = "users.png";
+      $iconeMouseOut = "users.png";
+      $bread_crumb = "Página Inicial > Usuários > Excluir Usuário";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
       <?php 
-        $nome_pag = "Excluir Usuário";
-        $icone_pag = "users.png";
-        $iconeMouseOut = "users.png";
-        $bread_crumb = "Home > Usuários > Excluir Usuário";
-
         require_once './cabecalho.php';
       ?>
 

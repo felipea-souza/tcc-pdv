@@ -19,7 +19,7 @@ main#corpo p {
 div#vendas {
   border-radius: 15px;
   background-color: #33ccff;
-  margin-top: -16px;
+  margin-top: -10px;
 }
 
 div#compras {
@@ -52,7 +52,7 @@ aside.aviso {
   float: right;
   background-color: rgb(251, 248, 229);
   border-radius: 15px;
-  #margin-top: 50px;
+  margin-top: 5px;
 }
 
 aside p {

@@ -2,40 +2,14 @@
 
 echo "
   <header id='cabecalho'>
-    <nav id='menu'>
-      <ul>
-       <!-- <li onmouseover='mudaFoto(`_imagens/especificacoes.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='specs.html'>Especificações</a></li> -->
-       <!-- <li onmouseover='mudaFoto(`_imagens/fotos.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='fotos.html'>Fotos</a></li> -->
-       <!-- <li onmouseover='mudaFoto(`_imagens/multimidia.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='multimidia.html'>Multimídia</a></li> -->
-       "; 
-       if(isAdmin()) {
-          echo "<li onmouseover='mudaFoto(`./_imagens/produtos.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='produtos.php'>Produtos</a></li>
-                <li onmouseover='mudaFoto(`_imagens/fornecedores.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='fornecedores.php'>Fornecedores</a></li>
-                <li onmouseover='mudaFoto(`_imagens/users.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='usuarios.php'>Usuários</a></li>";
-        }
-echo "
-        <!-- <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)'><a href='institucional.php'>Institucional</a></li> -->
-      </ul>
-
-      <ul id='relatorios' onmouseover='abreMenu()' onmouseout='fechaMenu()'>
-        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' style='width: 150px;'>Relatórios</li>
-        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./produtos-relatorio.php'>Produtos</a></li>
-        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./fornecedores-relatorio.php'>Fornecedores</a></li>
-        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./estoque-relatorio.php'>Estoque</a></li>
-        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./contas-relatorio.php'>Contas a Pagar</a></li>
-        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./notas-fiscais-relatorio.php'>Notas Fiscais</a></li>
-        <li onmouseover='mudaFoto(`_imagens/documento.png`)' onmouseout='mudaFoto(`_imagens/$iconeMouseOut`)' class='items'><a href='./compras-relatorio.php'>Compras</a></li>
-      </ul>
-    </nav>
-
     <hgroup>
       <h1>Sistema de Gestão PDV</h1> 
       <h2>Armazém Santo Antônio</h2>
       <h2 class='nome_pag'>$nome_pag</h2>
     </hgroup>
 
-    <a href='./home.php' title='Home'><img id='homepage' src='./_imagens/homepage.png'/></a> 
-    <img id='icone' src='_imagens/$icone_pag'/>
+    <a href='./home.php' title='Página inicial'><img id='homepage' src='./_imagens/homepage.png'/></a> 
+    <img id='icone' src='_imagens/$icone_pag'>
     <!-- <a href='./user-logout.php' title='Sair'><img id='sair' src='_imagens/sair.png'/></a> -->
 
     <hr>

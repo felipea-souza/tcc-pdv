@@ -16,17 +16,20 @@
   </head>
 
   <body>
-    <div id="interface">
+    <?php 
+      $nome_pag = "Relatório de Estoque";
+      $icone_pag = "produtos.png";
+      $iconeMouseOut = "produtos.png";
+      $bread_crumb = "Página Inicial > Relatório de Estoque";
 
+      require_once './menu.php';
+    ?>
+
+    <div id="interface">
       <?php 
         $flag = $_GET["iBusca"] ?? "";
         $chave = $_GET["cBusca"] ?? "";
         $ordem = $_GET["o"] ?? "";
-
-        $nome_pag = "Relatório de Estoque";
-        $icone_pag = "produtos.png";
-        $iconeMouseOut = "produtos.png";
-        $bread_crumb = "Home > Relatório de Estoque";
 
         require_once './cabecalho.php';
       ?>

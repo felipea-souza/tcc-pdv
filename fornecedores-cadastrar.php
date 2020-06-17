@@ -19,14 +19,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Cadastrar Fornecedor";
+      $icone_pag = "fornecedores.png";
+      $iconeMouseOut = "fornecedores.png";
+      $bread_crumb = "Página Inicial > Fornecedor > Cadastrar Fornecedor";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
-      <?php 
-        $nome_pag = "Cadastrar Fornecedor";
-        $icone_pag = "fornecedores.png";
-        $iconeMouseOut = "fornecedores.png";
-        $bread_crumb = "Home > Fornecedor > Cadastrar Fornecedor";
-
+      <?php
         require_once './cabecalho.php';
       ?>
 

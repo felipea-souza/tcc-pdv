@@ -19,14 +19,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Cadastrar Produto";
+      $icone_pag = "produtos.png";
+      $iconeMouseOut = "produtos.png";
+      $bread_crumb = "Página Inicial > Produtos > Cadastrar Produto";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
       <?php 
-        $nome_pag = "Cadastrar Produto";
-        $icone_pag = "produtos.png";
-        $iconeMouseOut = "produtos.png";
-        $bread_crumb = "Home > Produtos > Cadastrar Produto";
-
         require_once './cabecalho.php';
       ?>
 

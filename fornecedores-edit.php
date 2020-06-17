@@ -16,14 +16,17 @@
   </head>
 
   <body>
+    <?php 
+      $nome_pag = "Editar Fornecedor";
+      $icone_pag = "fornecedores.png";
+      $iconeMouseOut = "fornecedores.png";
+      $bread_crumb = "Página Inicial > Fornecedores > Editar Fornecedor";
+
+      require_once './menu.php';
+    ?>
+
     <div id="interface">
-
       <?php 
-        $nome_pag = "Editar Fornecedor";
-        $icone_pag = "fornecedores.png";
-        $iconeMouseOut = "fornecedores.png";
-        $bread_crumb = "Home > Fornecedores > Editar Fornecedor";
-
         require_once './cabecalho.php';
       ?>
 
