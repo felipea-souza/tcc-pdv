@@ -36,56 +36,48 @@
       <a title="Voltar" href="javascript:history.go(-1)"><img id="voltar-home" src="./_imagens/voltar.png"/></a>
       
       <div id="alinhar">
-        <form action="./compras-relatorio.php" method="get">
-          Buscar: <input type="text" name="cBusca" id="cBusca" size="20" maxlength="30" style="margin-bottom: 8px;"> 
-          <input type="image" class="buscar" title="Buscar/Listar todos" src="./_imagens/buscar.png"><br>
-          
+        <form action="./notas-fiscais-relatorio.php" method="get">
           Ordenar: 
-          <a href="./compras-relatorio.php?o=cb&cBusca=<?php echo $chave ?>">Cód. Barra</a> |
-          <a href="./compras-relatorio.php?o=prd&cBusca=<?php echo $chave ?>">Produto</a> | 
-          <a href="./compras-relatorio.php?o=lt&cBusca=<?php echo $chave ?>">Lote</a> | 
-          <a href="./compras-relatorio.php?o=meq&cBusca=<?php echo $chave ?>">Menor quant.</a> |
-          <a href="./compras-relatorio.php?o=maq&cBusca=<?php echo $chave ?>">Maior quant.</a> |
-          <a href="./compras-relatorio.php?o=mep&cBusca=<?php echo $chave ?>">Menor Preço</a> |
-          <a href="./compras-relatorio.php?o=map&cBusca=<?php echo $chave ?>">Maior Preço</a> |
-          <a href="./compras-relatorio.php?o=nf&cBusca=<?php echo $chave ?>">Nota Fiscal</a>
+          <a href="./notas-fiscais-relatorio.php?o=nf&cBusca=<?php echo $chave ?>">Nota Fiscal</a> |
+          <a href="./notas-fiscais-relatorio.php?o=for&cBusca=<?php echo $chave ?>">Fornecedor</a> | 
+          <a href="./notas-fiscais-relatorio.php?o=dtem&cBusca=<?php echo $chave ?>">Emissão</a> | 
+          <a href="./notas-fiscais-relatorio.php?o=dtre&cBusca=<?php echo $chave ?>">Receb.</a> |
+          <a href="./notas-fiscais-relatorio.php?o=mav&cBusca=<?php echo $chave ?>">Maior Valor</a> |
+          <a href="./notas-fiscais-relatorio.php?o=mev&cBusca=<?php echo $chave ?>">Menor Valor</a> | 
+
+          Buscar: <input type="text" name="cBusca" id="cBusca" size="20" maxlength="30"> 
+          <input type="image" class="buscar" title="Buscar/Listar todos" src="./_imagens/buscar.png">
         </form>
 
       </div>
       <table class="busca">
         <?php
-          $query = "SELECT produtos_compra.cod_barra, produtos.produto, produtos_compra.lote, produtos_compra.quant, produtos_compra.preco, produtos_compra.nf_compra FROM produtos_compra
-                    INNER JOIN produtos
-                    ON produtos_compra.cod_barra = produtos.cod_barra";
+          $query = "SELECT compras.nf, fornecedores.razao_social, date_format(compras.dt_emissao, '%d/%m/%Y') AS dt_emissao, date_format(compras.dt_receb, '%d/%m/%Y') AS dt_receb, compras.total, compras.pagto FROM compras
+                    INNER JOIN fornecedores
+                    ON compras.cnpj_forn = fornecedores.cnpj";
 
           if(!empty($chave)) {
-            $query .= " WHERE produto LIKE '%$chave%' OR lote LIKE '%$chave%' OR quant LIKE '%$chave%' OR nf_compra LIKE '%$chave%'";
+            $query .= " WHERE nf LIKE '%$chave%' OR razao_social LIKE '%$chave%' OR dt_emissao LIKE '%$chave%' OR dt_receb LIKE '%$chave%'";
           }
 
           switch ($ordem) {
-            case "cb":
-                  $query .= " ORDER BY cod_barra";
-                  break;
-            case "prd":
-                  $query .= " ORDER BY produto";
-                  break;
-            case "lt":
-                  $query .= " ORDER BY lote";
-                break;
-            case "meq":
-                  $query .= " ORDER BY quant ASC";
-                break;
-            case "maq":
-                  $query .= " ORDER BY quant DESC";
-                break;
-            case "mep":
-                  $query .= " ORDER BY preco ASC";
-                break;
-            case "map":
-                  $query .= " ORDER BY preco DESC";
-                break;
             case "nf":
-                  $query .= " ORDER BY nf_compra";
+                  $query .= " ORDER BY nf";
+                  break;
+            case "for":
+                  $query .= " ORDER BY razao_social";
+                  break;
+            case "dtem":
+                  $query .= " ORDER BY dt_emissao";
+                break;
+            case "dtre":
+                  $query .= " ORDER BY dt_receb";
+                break;
+            case "mav":
+                  $query .= " ORDER BY total DESC";
+                break;
+            case "mev":
+                  $query .= " ORDER BY total ASC";
                 break;
             /*default :
                 $query .= " ORDER BY cod_barra"; <- não precisou do 'default', pois verifiquei que com o parâmetro "o" vazio, o select padrão é realizado (ordenando pelo 'cod_barra') */
@@ -98,10 +90,11 @@
                     if ($consulta->num_rows == 0) {
                         echo "<tr><td style='font-style: italic;'>Nenhum registro encontrado!</td></tr>";
                     } else {
-                            echo "<tr id='cabecalho'><td>Cód. barra</td><td>Produto</td><td>Lote</td><td>Quant.</td><td>Preço</td><td>NF</td></tr>";
+                            echo "<tr id='cabecalho'><td>NF</td><td>Fornecedor</td><td>Emissão</td><td>Receb.</td><td>Total</td><td>Pagto</td></tr>";
                             while ($reg = $consulta->fetch_object()) {
-                             $preco = str_replace(".", ",", $reg->preco);
-                             echo "<tr><td>$reg->cod_barra</td><td>$reg->produto</td><td>$reg->lote</td><td>$reg->quant</td><td>$preco</td><td>$reg->nf_compra</td></tr>";
+                             $total = str_replace(".", ",", $reg->total);
+                             $pagto = ($reg->pagto == "bol") ? "Boleto" : "Espécie";
+                             echo "<tr><td>$reg->nf</td><td>$reg->razao_social</td><td>$reg->dt_emissao</td><td>$reg->dt_receb</td><td>$total</td><td>$pagto</td></tr>";
                             }
                       }
               }

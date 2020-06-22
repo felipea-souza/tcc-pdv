@@ -24,7 +24,7 @@ $consulta = $conexao->query($query);
 					} else {
 									while ($reg = $consulta->fetch_object()) {
 										//$preco = str_replace(".", ",", $reg->preco);
-				    	      echo "<option data-cb='$reg->cod_barra' data-desc='$reg->produto' data-quant='$reg->quant' data-preco='$reg->preco'>$reg->cod_barra | $reg->produto | $reg->lote | $reg->validade | $reg->quant</option>";
+				    	      echo "<option data-cb='$reg->cod_barra' data-lote='$reg->lote' data-desc='$reg->produto' data-quant='$reg->quant' data-preco='$reg->preco'>$reg->cod_barra | $reg->produto | $reg->lote | $reg->validade | $reg->quant</option>";
 				  	      }
   					}
 		}

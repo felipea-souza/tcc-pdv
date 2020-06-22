@@ -22,7 +22,9 @@ echo "
         <li class='items'><a href='./fornecedores-relatorio.php'>Fornecedores</a></li>
         <li class='items'><a href='./estoque-relatorio.php'>Estoque</a></li>
         <li class='items'><a href='./contas-relatorio.php'>Contas a Pagar</a></li>
-        <li class='items'><a href='./notas-fiscais-relatorio.php'>Notas Fiscais</a></li>
         <li class='items'><a href='./compras-relatorio.php'>Compras</a></li>
+        <li class='items'><a href='./produtos-compras-relatorio.php'>Produtos Compras</a></li>
+        <li class='items'><a href='./vendas-relatorio.php'>Vendas</a></li>
+        <li class='items'><a href='./produtos-vendas-relatorio.php'>Produtos Vendas</a></li>
       </ul>
     </nav>";

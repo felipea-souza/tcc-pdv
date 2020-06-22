@@ -5,7 +5,7 @@ function mudaFoto(foto) {
 
 function abreMenu() {
   var i = 0;
-  while (i <= 5) {
+  while (i <= 7) {
    var item = document.getElementsByClassName('items')[i];
    item.style.display = `list-item`;
    i++;
@@ -14,7 +14,7 @@ function abreMenu() {
 
 function fechaMenu() {
   var i = 0;
-  while (i <= 5) {
+  while (i <= 7) {
    var item = document.getElementsByClassName('items')[i];
    item.style.display = `none`;
    i++;

@@ -38,10 +38,15 @@
           <img class="atividade" src="./_imagens/vendas.png">
         </div></a>
 
-        <a class="atividade" href="compras.php"><div id="compras">
-          <p>Compras</p>
-          <img class="atividade" src="./_imagens/compras.png" style="width: 50px;">
-        </div></a>
+        <?php
+          if (isAdmin()) {
+            echo "
+              <a class='atividade' href='compras.php'><div id='compras'>
+                <p>Compras</p>
+                <img class='atividade' src='./_imagens/compras.png' style='width: 50px;'>
+              </div></a>";
+          }
+        ?>
       </main>
 
       <?php 

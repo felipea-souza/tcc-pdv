@@ -8,7 +8,7 @@ main#corpo {
   width: 495px;
   display: block;
   float: left;
-  #border: 1px solid red;
+#border: 1px solid red;
 }
 
 main#corpo p {
