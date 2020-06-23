@@ -42,7 +42,7 @@
           <a href="./vendas-relatorio.php?o=tot&cBusca=<?php echo $chave ?>">Total</a> | 
           <a href="./vendas-relatorio.php?o=fo&cBusca=<?php echo $chave ?>">Forma</a> | 
           <a href="./vendas-relatorio.php?o=vr&cBusca=<?php echo $chave ?>">Valor Receb.</a> |
-          <a href="./vendas-relatorio.php?o=vt&cBusca=<?php echo $chave ?>">Valor Troco.</a> |
+          <a href="./vendas-relatorio.php?o=vt&cBusca=<?php echo $chave ?>">Valor Troco</a> |
 
           Buscar: <input type="text" name="cBusca" id="cBusca" size="20" maxlength="30"> 
           <input type="image" class="buscar" title="Buscar/Listar todos" src="./_imagens/buscar.png">

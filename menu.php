@@ -26,5 +26,6 @@ echo "
         <li class='items'><a href='./produtos-compras-relatorio.php'>Produtos Compras</a></li>
         <li class='items'><a href='./vendas-relatorio.php'>Vendas</a></li>
         <li class='items'><a href='./produtos-vendas-relatorio.php'>Produtos Vendas</a></li>
+        <li class='items'><a href='./relatorios-gerencial.php'>Gerenciais</a></li>
       </ul>
     </nav>";

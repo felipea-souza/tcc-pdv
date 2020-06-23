@@ -23,6 +23,9 @@
       img.adiciona_remove {
         margin-top: 10px;
       }
+      div#aviso-produto {
+        display: none;
+      }
     </style>
   </head>
 
@@ -79,12 +82,16 @@
                           <p class='oculto'>Número de boletos: <input type='text' id='numBoletosForm' name='numBoletosForm' value='1'></p></fieldset> 
                           
 
+                          <div id='aviso-produto'>
+
+                          </div>
+
                           <!-- Tabelas 'produtos_compra' e 'estoque' -->
                          <fieldset><legend>Produtos</legend>
                           <!-- * campo 'produtos_compra.id_prod_compra' (chave primária, AUTO_INCREMENT) -->
                           <table id='produtos'>
                             <tr><td>Cód. barra</td><td>Lote</td><td>Validade</td><td>Quant.</td><td>Preço R$</td></tr>
-                            <tr><td><input type='text' id='cbForm1' name='cbForm1' maxlength='13' size='13'>
+                            <tr><td><input type='text' id='cbForm1' name='cbForm1' maxlength='13' size='13' onKeyUp='verificaProduto(`1`)'>
                             <td><input type='text' id='loteForm1' name='loteForm1' maxlength='8' size='8'></td>
                             <td><input type='date' id='vldForm1' name='vldForm1'></td>
                             <td><input type='number' id='quantForm1' name='quantForm1' min='0' maxlength='3' size='3'></td>
@@ -174,6 +181,7 @@
     <?php include_once "./rodape.php"; ?>
 
     <script type="text/javascript" src="./_javascript/funcoes.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
       function desabilitar() {
         var checkbox = document.getElementById('checkbox');
@@ -230,7 +238,7 @@
           var linha = window.document.createElement(`tr`);
           linha.id = `produto${j}`;
           
-          linha.innerHTML += "<td><input type='text' id='cbForm"+j+"' name='cbForm"+j+"' maxlength='13' size='13'>"+
+          linha.innerHTML += "<td><input type='text' id='cbForm"+j+"' name='cbForm"+j+"' maxlength='13' size='13' onKeyUp='verificaProduto(`"+j+"`)'>"+
                                    "<td><input type='text' id='loteForm"+j+"' name='loteForm"+j+"' maxlength='8' size='8'></td>"+
                                    "<td><input type='date' id='vldForm"+j+"' name='vldForm"+j+"'></td>"+
                                    "<td><input type='number' id='quantForm"+j+"' name='quantForm"+j+"' min='0' maxlength='3' size='3'></td>"+
@@ -330,6 +338,33 @@
         if (ok == `true`) {
                  window.alert(`Apertou o "Sibmit"!`);
         } 
+      }
+
+      function verificaProduto(pos) {
+        var cb = document.getElementById(`cbForm${pos}`);
+        if (cb.value.length == 13) {
+          $.ajax({  //  <- objeto da classe XmlHttpRequest
+            url: './_includes/produto-verificar.php', //Diz pro Ajax para onde vai ser enviado o script (para ser executado)
+            method: 'post',
+            data: {chave: cb.value, pos: pos},  // O parâmetro 'data' recebe também um objeto
+
+            success: function(resposta) {
+              if (resposta) {
+                var div = document.getElementById('aviso-produto');
+                div.innerHTML = resposta;
+                div.style.display = `block`;
+                cb.style.background = `#efdfde`;
+              }
+            }
+          });
+        }
+      }
+
+      function fecharDiv(pos) {
+        var div = document.getElementById('aviso-produto');
+        div.style.display = `none`;
+        div.innerHTML = ``;
+        document.getElementById(`cbForm${pos}`).style.background = ``;
       }
 
     </script>
