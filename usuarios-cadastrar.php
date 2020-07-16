@@ -39,17 +39,19 @@
         if (!isAdmin()) {
           echo msgAviso("Área restrita!</p><p>Você não é administrador.");
         } else {
-                $nome = $_POST['nome'] ?? "";
-                $cpf = $_POST['cpf'] ?? "";
-                $login = $_POST['login'] ?? "";
-                $senha = $_POST['senha'] ?? "";
-                $tipo = $_POST['tipo'] ?? "";
+                $cpfval = $_GET['cpfval'] ?? null;
+
+                $nome = $_POST['nome'] ?? null;
+                $cpf = $_POST['cpf'] ?? null;
+                $login = $_POST['login'] ?? null;
+                $senha = $_POST['senha'] ?? null;
+                $tipo = $_POST['tipo'] ?? null;
 
                 if (empty($nome)) {
                   echo "
                         <form class='cadastro' action='./usuarios-cadastrar.php' method='post'><fieldset><legend>Cadastrar Novo Usuário</legend>
                         <p>Nome: <input type='text' id='nome' name='nome' size='20' maxlenght='40'></p>
-                        <p>CPF: <input type='text' id='cpf' name='cpf' size='14' maxlength='14' placeholder='Somente nº' onkeypress='return validarCPF(event)'></p>
+                        <p>CPF: <input type='text' id='cpf' name='cpf' size='14' maxlength='14'  value='$cpfval' readonly style='background-color: #ebebe4;'></p>
                         <p>Login: <input type='text' id='login' name='login' size='20' maxlength='30'></p>
                         <p>Senha: <input type='password' id='senha' name='senha' size='12' maxlength='16'/></p>
                         <p>Tipo: <select name='tipo'>

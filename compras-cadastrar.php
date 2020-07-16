@@ -44,7 +44,7 @@
         require_once './cabecalho.php';
       ?>
 
-      <a title="Voltar" href="javascript:history.go(-1)"><img id="voltar-home" src="./_imagens/voltar.png"></a>
+      <a title="Voltar" href="./compras.php"><img id="voltar-home" src="./_imagens/voltar.png"></a>
       <?php 
         if (!isAdmin()) {
           echo msgAviso("Área restrita!</p><p>Você não é administrador.");

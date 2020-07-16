@@ -31,7 +31,7 @@
         require_once './cabecalho.php';
       ?>
 
-      <a title="Voltar" href="./home.php"><img id="voltar-home" src="./_imagens/voltar.png"/></a>
+      <a title="Voltar" href="./home.php"><img id="voltar-home" src="./_imagens/voltar.png" style="margin-bottom: 5px;"></a>
 
         <table class="busca">
         <?php 
@@ -44,7 +44,7 @@
                     if ($consulta->num_rows == 0) {
                       echo "<tr><td style='font-style: italic;'>Nenhum registro encontrado!</td></tr>";
                       } else {
-                              echo "<tr id='cabecalho'><td>Nome</td><td>CPF</td><td>Login</td><td>Tipo</td><td><a class='adicionar' href='./usuarios-cadastrar.php' title='Adicionar novo usuário'><img src='./_imagens/adicionar.png'/></a></td></tr>";
+                              echo "<tr id='cabecalho'><td>Nome</td><td>CPF</td><td>Login</td><td>Tipo</td><td><a class='adicionar' href='./usuarios-verificar.php' title='Adicionar novo usuário'><img src='./_imagens/adicionar.png'/></a></td></tr>";
                               //$linha = 0;
                               while ($reg = $consulta->fetch_object()) {
                                 echo "<tr><td>$reg->nome</td><td>$reg->cpf</td><td>$reg->login</td><td>$reg->tipo</td><td><a title='Editar' href='usuarios-edit.php?id=$reg->id_user'><img src='./_imagens/editar.png'/></a> <a title='Excluir' href='usuarios-delete.php?id=$reg->id_user'><img src='./_imagens/deletar.png'/></a></td></tr>";

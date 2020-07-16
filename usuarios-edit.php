@@ -57,7 +57,7 @@
                             echo "<p>Nome: <input type='text' id='nome' name='nome' size='20' maxlength='40' value='$reg->nome'/></p>";
                             echo "<p>CPF: <input type='text' id='cpf' name='cpf' value='$reg->cpf' maxlength='14' size='14' placeholder='Somente nº' onkeypress='return validarCPF(event)'></p>";
                             echo "<p>Login: <input type='text' id='login' name='login' size='20' maxlength='30' value='$reg->login'/></p>";
-                            echo "<p>Tipo: <select name='sTipo'>";
+                            echo "<p>Tipo: <select name='sTipo' id='sTipo'>";
                                              if($reg->tipo == "usr") {
                                               echo "<option value='usr'>Usuário</option>
                                                     <option value='adm'>Administrador</option>
@@ -87,20 +87,33 @@
 
     <script type="text/javascript" src="./_javascript/funcoes.js"></script>
     <script>
-      function validarCamposUserEdit() {
-        var nome = document.getElementById('nome').value;
-        var cpf = document.getElementById('cpf').value;
-        var login = document.getElementById('login').value;
+      var nome = document.getElementById('nome').value;
+      var cpf = document.getElementById('cpf').value;
+      var login = document.getElementById('login').value;
+      var tipo = document.getElementById('sTipo').value;
 
-        if (nome.length == 0 || cpf.length == 0 || login.length == 0) {
-          window.alert(`Você deve preencher todos os campos!`);
+      function validarCamposUserEdit() {
+        var nome2 = document.getElementById('nome').value;
+        var cpf2 = document.getElementById('cpf').value;
+        var login2 = document.getElementById('login').value;
+        var tipo2 = document.getElementById('sTipo').value;
+
+        if (nome == nome2 && cpf == cpf2 && login == login2 && tipo == tipo2) {
+          window.alert("Não há alteração de dados!");
         } else {
-                if (login.indexOf(`@`) == -1 || login.indexOf(`.`) == -1) {
-                  window.alert(`O campo "Login" deve conter um endereço de e-mail válido.`);
+                if (nome2.length == 0 || cpf2.length == 0 || login2.length == 0) {
+                  window.alert(`Você deve preencher todos os campos!`);
                 } else {
-                        document.getElementById('submit').click();
-                  }  
+                        if (login2.indexOf(`@`) == -1 || login2.indexOf(`.`) == -1) {
+                          window.alert(`O campo "Login" deve conter um endereço de e-mail válido.`);
+                        } else {
+                                document.getElementById('submit').click();
+                                //window.alert(`Submit`);
+                          }  
+                  }
           }
+
+        
       }
     </script>
   </body>

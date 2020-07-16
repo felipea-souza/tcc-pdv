@@ -108,7 +108,7 @@
         require_once './cabecalho.php';
       ?>
 
-      <a title="Voltar" href=""><img id="voltar-home" src="./_imagens/voltar.png"></a>
+      <a title="Voltar" href="./home.php"><img id="voltar-home" src="./_imagens/voltar.png"></a>
 
       <?php
         
@@ -122,7 +122,7 @@
                 <!-- Produtos -->
               </select>
               
-              <input type='button' id='idInclui' value='>>' onClick='incluiItem()'>
+              <input type='button' id='idInclui' value='>>' title='Incluir' onClick='incluiItem()'>
               <p><input type='button' name='fecharVenda' id='fecharVenda' value='FECHAR VENDA' onClick='fecharVenda()'></p>
 
               <div id='finalizar-venda'>

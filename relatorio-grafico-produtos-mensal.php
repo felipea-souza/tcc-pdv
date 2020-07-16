@@ -17,11 +17,55 @@
   </head>
 
   <body>
-    <?php 
-      $nome_pag = "Relatório de Produtos";
+    <?php
+      $mes = $_GET['mes'] ?? null;
+      $ano = $_GET['ano'] ?? date('Y');
+
+      switch($mes) {
+        case "01":
+          $mes2 = "Janeiro";
+          break;
+        case "02":
+          $mes2 = "Fevereiro";
+          break;
+        case "03":
+          $mes2 = "Março";
+          break;
+        case "04":
+          $mes2 = "Abril";
+          break;
+        case "05":
+          $mes2 = "Maio";
+          break;
+        case "06":
+          $mes2 = "Junho";
+          break;
+        case "07":
+          $mes2 = "Julho";
+          break;
+        case "08":
+          $mes2 = "Agosto";
+          break;
+        case "09":
+          $mes2 = "Setembro";
+          break;
+        case "10":
+          $mes2 = "Outubro";
+          break;
+        case "11":
+          $mes2 = "Novembro";
+          break;
+        case "12":
+          $mes2 = "Dezembro";
+          break;
+        default:
+          $mes2 = "Janeiro";
+      }
+
+      $nome_pag = "Top 5 Mensal";
       $icone_pag = "gerencial.png";
       $iconeMouseOut = "gerencial.png";
-      $bread_crumb = "Página Inicial > Relatórios Gerenciais > Relatório de Produtos";
+      $bread_crumb = "Página Inicial > Relatórios > Gerenciais > Relatórios Gerenciais > Top 5 Mensal";
 
       require_once './menu.php';
     ?>
@@ -33,7 +77,7 @@
 
       <a title="Voltar" href="javascript:history.go(-1)"><img id="voltar-home" src="./_imagens/voltar.png"></a>
 
-      <div id="columnchart_material" style="width: 100%; height: 500px;"></div>
+      <div id="columnchart_material" style="width: 100%; height: 500px; margin-top: 15px;"></div>
 
       <script>
       google.charts.load('current', {'packages': ['bar']});
@@ -41,10 +85,10 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Fevereiro', 'Quant'],
+          ['<?php echo $mes2; ?>', 'Quant.'],
 
           <?php
-            $query = "SELECT produtos.cod_barra, produtos.produto, sum(produtos_venda.quant) AS quant,  date_format(vendas.dt_hr, '%m') FROM produtos_venda
+            $query = "SELECT produtos.produto, sum(produtos_venda.quant) AS quant FROM produtos_venda
             INNER JOIN vendas
             ON produtos_venda.id_venda = vendas.id_venda
 
@@ -57,29 +101,34 @@
             INNER JOIN produtos
             ON produtos_compra.cod_barra = produtos.cod_barra
 
-            WHERE date_format(vendas.dt_hr, '%m') = '06'
-            GROUP BY cod_barra
-            ORDER BY quant LIMIT 5";
+            WHERE date_format(vendas.dt_hr, '%m/%Y') = '$mes/$ano'
+            GROUP BY produto
+            ORDER BY quant DESC
+            LIMIT 5";
 
             $consulta = $conexao->query($query);
 
-            if (!$consulta) {
-              echo "Não foi possível realizar a consulta";
-            } else {
+            $produto = array();
+            $quant = array();
+            $i = 4;
             while ($reg = $consulta->fetch_object()) {
-              $produto = $reg->produto;
-              $quant = $reg->quant;
+              $produto[$i] = $reg->produto ?? "Nenhum produto";
+              $quant[$i] = $reg->quant ?? 0;
+              $i--;
+            }
+
+            for ($c=0 ; $c<=4 ; $c++) {
           ?>
 
-          ['<?php echo $produto; ?>', '<?php echo $quant; ?>'],
+          ['<?php echo $produto[$c]; ?>', '<?php echo $quant[$c]; ?>'],
 
-          <?php }} ?>
+          <?php } ?>
         ]);
 
         var options = {
           chart: {
             title: 'Mais vendidos',
-            subtitle: 'Mês fevereiro 2020',
+            subtitle: '<?php echo $mes2; ?> de <?php echo $ano; ?>',
           }
         };
 
